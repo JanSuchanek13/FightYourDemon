@@ -8325,7 +8325,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 869033648}
-  m_Father: {fileID: 1716723930}
+  m_Father: {fileID: 2023225363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -8380,11 +8380,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdd608be4a500524e910832f3e40ad19, type: 3}
+  m_Script: {fileID: 11500000, guid: f0547c31d0083854991dc787dde008c2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MouseLook
-  mouseSensitivity: 1
-  playerBody: {fileID: 1716723930}
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponRecoil
+  snappiness: 10
+  returnSpeed: 6
 --- !u!1001 &334852318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11872,7 +11872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899162da1529078468451a1cc358476b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeUI
-  mouseLook: {fileID: 330585548}
+  mouseLook: {fileID: 0}
   Button1: {fileID: 1443700575}
   Button2: {fileID: 1925917267}
 --- !u!114 &642232061
@@ -14685,6 +14685,7 @@ MonoBehaviour:
   firePoint: {fileID: 1415201925}
   playerCamera: {fileID: 330585545}
   damageNumbers: {fileID: 631962016}
+  recoil: {fileID: 330585548}
   currentAmmo: 0
   maxAmmo: 20
   currentmaxAmmo: 0
@@ -15554,7 +15555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShootUpShop
   health: 1
   shopUI: {fileID: 52058779}
-  mouseLook: {fileID: 330585548}
+  mouseLook: {fileID: 2023225364}
   slowDownDuration: 1.2
 --- !u!54 &964377835
 Rigidbody:
@@ -17417,7 +17418,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MouseLook, Assembly-CSharp
         m_MethodName: set_enabled
         m_Mode: 6
@@ -18172,7 +18173,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 2023225364}
         m_TargetAssemblyTypeName: MouseLook, Assembly-CSharp
         m_MethodName: set_enabled
         m_Mode: 6
@@ -23430,7 +23431,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 330585546}
+  - {fileID: 2023225363}
   - {fileID: 1340697101}
   m_Father: {fileID: 1879326608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24342,7 +24343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI_SkillTree
   weapon: {fileID: 869033647}
   skillTooltip: {fileID: 853881996}
-  mouseLook: {fileID: 330585548}
+  mouseLook: {fileID: 2023225364}
   skillLockedMaterial: {fileID: 2100000, guid: 455d705381751454da0f6bb7aca79fa7, type: 2}
   skillUnlockedMaterial: {fileID: 2100000, guid: 5bc15c373bebe8945b17a482d428576c, type: 2}
   skillUnlockPathsArray:
@@ -25201,7 +25202,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MouseLook, Assembly-CSharp
         m_MethodName: set_enabled
         m_Mode: 6
@@ -25466,7 +25467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShootUpShop
   health: 1
   shopUI: {fileID: 829798956}
-  mouseLook: {fileID: 330585548}
+  mouseLook: {fileID: 2023225364}
   slowDownDuration: 1.2
 --- !u!54 &1834332922
 Rigidbody:
@@ -25687,7 +25688,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MouseLook, Assembly-CSharp
         m_MethodName: set_enabled
         m_Mode: 6
@@ -26352,7 +26353,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MouseLook, Assembly-CSharp
         m_MethodName: set_enabled
         m_Mode: 6
@@ -27121,6 +27122,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020322754}
   m_CullTransparentMesh: 1
+--- !u!1 &2023225362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2023225363}
+  - component: {fileID: 2023225364}
+  m_Layer: 0
+  m_Name: CamHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2023225363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023225362}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 330585546}
+  m_Father: {fileID: 1716723930}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2023225364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023225362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd608be4a500524e910832f3e40ad19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseLook
+  mouseSensitivity: 1
+  playerBody: {fileID: 1716723930}
 --- !u!1 &2026093913
 GameObject:
   m_ObjectHideFlags: 0

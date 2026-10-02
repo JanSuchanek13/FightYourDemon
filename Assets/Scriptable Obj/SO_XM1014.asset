@@ -21,7 +21,7 @@ MonoBehaviour:
   range: 100
   magazineSize: 7
   reloadTime: 2
-  recoilForce: 1
+  recoilForce: 10
   useProjectile: 0
   projectilePrefab: {fileID: 663929286935574279, guid: 484e6534213f59b47aecebb41520b076, type: 3}
   projectileSpeed: 30

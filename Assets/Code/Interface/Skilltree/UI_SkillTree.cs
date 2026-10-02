@@ -3,6 +3,7 @@ using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System;
 
 public class UI_SkillTree : MonoBehaviour
 {
@@ -370,21 +371,64 @@ public class UI_SkillTree : MonoBehaviour
 
     private void UpdateVisuals() //skill Farbe Ändern
     {
+        foreach (PlayerSkills.SkillType skill in Enum.GetValues(typeof(PlayerSkills.SkillType)))
+        {
+            Transform uiSkill = transform.Find(skill.ToString());
+
+            if (uiSkill == null)
+            {
+                Debug.LogWarning($"Kein UI-Element für Skill {skill} gefunden!");
+                continue;
+            }
+
+            Transform imageTransform = uiSkill.Find("Image");
+
+            if (imageTransform == null)
+            {
+                Debug.LogWarning($"Image für Skill {skill} nicht gefunden!");
+                continue;
+            }
+
+            Image image = imageTransform.GetComponent<Image>();
+
+            if (playerSkills.IsSkillUnlocked(skill))
+            {
+                // Skill bereits freigeschaltet
+                uiSkill.gameObject.SetActive(true);
+                image.material = null;
+            }
+            else if (playerSkills.CanUnlock(skill))
+            {
+                // Skill kann freigeschaltet werden
+                uiSkill.gameObject.SetActive(true);
+                image.material = skillUnlockedMaterial;
+            }
+            else
+            {
+                // Skill kann noch nicht freigeschaltet werden
+                uiSkill.gameObject.SetActive(false);
+            }
+        }
+
+        /*
+        Transform uiSkill = transform.Find("DamageAdd_1");
         if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.DamageAdd_1)) //wenn freigeschalten dann keine Änderung
         {
-            transform.Find("DamageAdd_1").Find("Image").GetComponent<Image>().material = null;
+            uiSkill.Find("Image").GetComponent<Image>().material = null;
         }
         else
         {
             if (playerSkills.CanUnlock(PlayerSkills.SkillType.DamageAdd_1))
             {
-                transform.Find("DamageAdd_1").Find("Image").GetComponent<Image>().material = skillUnlockedMaterial;
+                uiSkill.gameObject.SetActive(true);
+                uiSkill.Find("Image").GetComponent<Image>().material = skillUnlockedMaterial;
             }
             else
             {
-                transform.Find("DamageAdd_1").Find("Image").GetComponent<Image>().material = skillLockedMaterial;
+                uiSkill.gameObject.SetActive(false);
             }
         }
+
 
         if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.AmmoAdd_1)) //wenn freigeschalten dann keine Änderung
         {
@@ -641,19 +685,29 @@ public class UI_SkillTree : MonoBehaviour
                 transform.Find("FlyingBoost_1").Find("Image").GetComponent<Image>().material = skillLockedMaterial;
             }
         }
+        */
 
-        //darken all links
+        //deactivate all links
         foreach (SkillUnlockPath skillUnlockPath in skillUnlockPathsArray)
         {
             foreach (Image linkImage in skillUnlockPath.linkImageArray)
             {
-                linkImage.color = new Color(.5f, .5f, .5f);
+                linkImage.gameObject.SetActive(false);
             }
         }
 
         foreach (SkillUnlockPath skillUnlockPath in skillUnlockPathsArray)
         {
-            if (playerSkills.IsSkillUnlocked(skillUnlockPath.skillType) || playerSkills.CanUnlock(skillUnlockPath.skillType))
+            if (playerSkills.CanUnlock(skillUnlockPath.skillType)) //Wenn kaufbar dann grau
+            {
+                foreach (Image linkImage in skillUnlockPath.linkImageArray)
+                {
+                    linkImage.gameObject.SetActive(true);
+                    linkImage.color = new Color(.5f, .5f, .5f);
+                }
+            }
+
+            if (playerSkills.IsSkillUnlocked(skillUnlockPath.skillType)) //Wenn gekauft dann weíß
             {
                 //skill unlocked or can be unlocked
                 foreach (Image linkImage in skillUnlockPath.linkImageArray)

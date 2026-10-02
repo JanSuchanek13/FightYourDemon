@@ -9,6 +9,7 @@ public class WeaponController : MonoBehaviour
     public WeaponData weaponData;
     public Transform firePoint;
     public Camera playerCamera;
+    [SerializeField] private DamageNumberManager damageNumbers;
 
     private float nextFireTime;
     public int currentAmmo;
@@ -164,14 +165,23 @@ public class WeaponController : MonoBehaviour
 
             if (hit.collider.TryGetComponent(out IDamageable damageable))
             {
-                //Debug.Log("Hit");
-                damageable.TakeDamage((weaponData.damage + damageAdd) * damageMulti);
-                if (hit.transform.gameObject.GetComponent<HornShooting>() != null)
+                float dmg = (weaponData.damage + damageAdd) * damageMulti;//Brechnugn vom Schaden
+
+                if (hit.transform.gameObject.GetComponent<HornShooting>() != null) //Horn Treffer
                 {
+                    damageable.TakeDamage(dmg);
                     ImpactEffectPool.Instance.Play(hitSparkPrefab, hit.point, rot);          // Funken spritzen
                 }
+                else                                                                //Gegner Treffer
+                {
+                    //Debug.Log("Hit");
+                    damageable.TakeDamage(dmg);
+                    // Schadenszahl genau am Einschlagpunkt
+                    damageNumbers.Show(dmg, hit.point, Color.white);
+                }
+                
             }
-            else
+            else                                                                    //Umgebungs Treffer
             {
                 holePool.Place(hit.point, hit.normal);   // Einschussloch setzen
                 ImpactEffectPool.Instance.Play(hitSparkPrefab, hit.point, rot);           // Funken spritzen
@@ -204,30 +214,28 @@ public class WeaponController : MonoBehaviour
 
             if (hit.collider.TryGetComponent(out IDamageable damageable))
             {
-                //Debug.Log("Hit: " + hit.collider.gameObject.name);
-                
-                damageable.TakeDamage((weaponData.damage + damageAdd) * damageMulti);
+                float dmg = (weaponData.damage + damageAdd) * damageMulti;          //Brechnugn vom Schaden
 
-                if (hit.transform.gameObject.GetComponent<HornShooting>() != null)
+                if (hit.transform.gameObject.GetComponent<HornShooting>() != null)  //Horn Treffer
                 {
-                    ImpactEffectPool.Instance.Play(
-                        hitSparkPrefab,
-                        hit.point,
-                        rot
-                    );
-                    break; // Wand/Objekt stoppt die Kugel
+                    damageable.TakeDamage(dmg);
+                    ImpactEffectPool.Instance.Play(hitSparkPrefab, hit.point, rot); // Funken spritzen
+                    break; // Wand/Object stoppt die Kugel
                 }
-            }
-            else
-            {
-                holePool.Place(hit.point, hit.normal);
+                else                                                                //Gegner Treffer
+                {
+                    //Debug.Log("Hit");
+                    damageable.TakeDamage(dmg);
+                    // Schadenszahl genau am Einschlagpunkt
+                    damageNumbers.Show(dmg, hit.point, Color.white);
+                }
 
-                ImpactEffectPool.Instance.Play(
-                    hitSparkPrefab,
-                    hit.point,
-                    rot
-                );
-                
+            }
+            else                                                                    //Umgebungs Treffer
+            {
+                holePool.Place(hit.point, hit.normal);   // Einschussloch setzen
+                ImpactEffectPool.Instance.Play(hitSparkPrefab, hit.point, rot);           // Funken spritzen
+                break; // Wand/Object stoppt die Kugel
             }
         }
     }

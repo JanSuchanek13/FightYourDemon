@@ -104,7 +104,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
             isbreaking = true;
             this.transform.GetChild(0).GetComponent<HitFlash>().Flash();
             ComboCounter.Instance.AddKill();
-            collider.enabled = false;
+            Invoke("DisableCollider", 0.01f); //Collider aus damit man Gegner dahinter Treffen kann aber mit kleiner Verzögerung um alle Shotgun-Treffer Damage-Zahlen anzuzeigen
 
             //Check for perfekt Kill
             int activeHorns = 0;
@@ -126,6 +126,11 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
             }
         }
         
+    }
+
+    private void DisableCollider()
+    {
+        collider.enabled = false;
     }
 
     void Break2()

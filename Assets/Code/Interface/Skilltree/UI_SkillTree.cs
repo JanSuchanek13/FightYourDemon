@@ -1,9 +1,10 @@
-using UnityEngine;
 using CodeMonkey.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class UI_SkillTree : MonoBehaviour
 {
@@ -11,11 +12,18 @@ public class UI_SkillTree : MonoBehaviour
     [SerializeField] private WeaponController weapon;
 
     public GameObject skillTooltip;
+    [SerializeField] private TMP_Text uiName;
+    [SerializeField] private TMP_Text uiDesc;
+    [SerializeField] private TMP_Text uiStat1;
+    [SerializeField] private TMP_Text uiStat2;
+    [SerializeField] private TMP_Text uiPrice;
     public MouseLook mouseLook;
 
     [SerializeField] private Material skillLockedMaterial;
     [SerializeField] private Material skillUnlockedMaterial;
     [SerializeField] private SkillUnlockPath[] skillUnlockPathsArray;
+
+
 
     private void Awake()
     {
@@ -36,11 +44,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.FullAuto) || playerSkills.CanUnlock(PlayerSkills.SkillType.FullAuto)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("FullAuto").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.FullAuto_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.FullAuto_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = weapon.weaponData.fireMode.ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = "Full Auto";
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.FullAuto_Price.ToString();
+                uiName.text = ConfigSkills.Instance.FullAuto_Name;
+                uiDesc.text = ConfigSkills.Instance.FullAuto_Desc;
+                uiStat1.text = weapon.weaponData.fireMode.ToString();
+                uiStat2.text = "Full Auto";
+                uiPrice.text = ConfigSkills.Instance.FullAuto_Price.ToString();
             }
         };
 
@@ -55,11 +63,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.PiercingShot) || playerSkills.CanUnlock(PlayerSkills.SkillType.PiercingShot)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("PiercingShot").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.PiercingShot_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.PiercingShot_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = "Normal";
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = "Piercing";
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.PiercingShot_Price.ToString();
+                uiName.text = ConfigSkills.Instance.PiercingShot_Name;
+                uiDesc.text = ConfigSkills.Instance.PiercingShot_Desc;
+                uiStat1.text = "Normal";
+                uiStat2.text = "Piercing";
+                uiPrice.text = ConfigSkills.Instance.PiercingShot_Price.ToString();
             }
         };
 
@@ -74,11 +82,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.DamageAdd_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.DamageAdd_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("DamageAdd_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DamageAdd_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DamageAdd_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.damage + weapon.damageAdd).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.damage + weapon.damageAdd + ConfigSkills.Instance.DamageAdd_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DamageAdd_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.DamageAdd_1_Name;
+                uiDesc.text = ConfigSkills.Instance.DamageAdd_1_Desc;
+                uiStat1.text = (weapon.weaponData.damage + weapon.damageAdd).ToString();
+                uiStat2.text = (weapon.weaponData.damage + weapon.damageAdd + ConfigSkills.Instance.DamageAdd_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.DamageAdd_1_Price.ToString();
             }
         };
 
@@ -93,11 +101,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.DamageAdd_2) || playerSkills.CanUnlock(PlayerSkills.SkillType.DamageAdd_2)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("DamageAdd_2").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DamageAdd_2_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DamageAdd_2_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.damage + weapon.damageAdd).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.damage + weapon.damageAdd + ConfigSkills.Instance.DamageAdd_2_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DamageAdd_2_Price.ToString();
+                uiName.text = ConfigSkills.Instance.DamageAdd_2_Name;
+                uiDesc.text = ConfigSkills.Instance.DamageAdd_2_Desc;
+                uiStat1.text = (weapon.weaponData.damage + weapon.damageAdd).ToString();
+                uiStat2.text = (weapon.weaponData.damage + weapon.damageAdd + ConfigSkills.Instance.DamageAdd_2_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.DamageAdd_2_Price.ToString();
             }
         };
 
@@ -112,11 +120,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.AmmoAdd_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.AmmoAdd_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("AmmoAdd_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.AmmoAdd_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.AmmoAdd_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = weapon.maxAmmo.ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.maxAmmo + ConfigSkills.Instance.AmmoAdd_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.AmmoAdd_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.AmmoAdd_1_Name;
+                uiDesc.text = ConfigSkills.Instance.AmmoAdd_1_Desc;
+                uiStat1.text = weapon.maxAmmo.ToString();
+                uiStat2.text = (weapon.maxAmmo + ConfigSkills.Instance.AmmoAdd_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.AmmoAdd_1_Price.ToString();
             }
         };
 
@@ -131,11 +139,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.AmmoAdd_2) || playerSkills.CanUnlock(PlayerSkills.SkillType.AmmoAdd_2)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("AmmoAdd_2").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.AmmoAdd_2_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.AmmoAdd_2_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = weapon.maxAmmo.ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.maxAmmo + ConfigSkills.Instance.AmmoAdd_2_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.AmmoAdd_2_Price.ToString();
+                uiName.text = ConfigSkills.Instance.AmmoAdd_2_Name;
+                uiDesc.text = ConfigSkills.Instance.AmmoAdd_2_Desc;
+                uiStat1.text = weapon.maxAmmo.ToString();
+                uiStat2.text = (weapon.maxAmmo + ConfigSkills.Instance.AmmoAdd_2_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.AmmoAdd_2_Price.ToString();
             }
         };
 
@@ -150,11 +158,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.MagazineMulti_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.MagazineMulti_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("MagazineMulti_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MagazineMulti_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MagazineMulti_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.magazineSize * weapon.magazineMulti).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.magazineSize * (weapon.magazineMulti + ConfigSkills.Instance.MagazineMulti_1_Value)).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MagazineMulti_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.MagazineMulti_1_Name;
+                uiDesc.text = ConfigSkills.Instance.MagazineMulti_1_Desc;
+                uiStat1.text = (weapon.weaponData.magazineSize * weapon.magazineMulti).ToString();
+                uiStat2.text = (weapon.weaponData.magazineSize * (weapon.magazineMulti + ConfigSkills.Instance.MagazineMulti_1_Value)).ToString();
+                uiPrice.text = ConfigSkills.Instance.MagazineMulti_1_Price.ToString();
             }
         };
 
@@ -169,11 +177,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.Reload_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.Reload_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("Reload_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Reload_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Reload_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.reloadTime / weapon.reloadMulti).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (weapon.weaponData.reloadTime / (weapon.reloadMulti + ConfigSkills.Instance.Reload_1_Value)).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Reload_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.Reload_1_Name;
+                uiDesc.text = ConfigSkills.Instance.Reload_1_Desc;
+                uiStat1.text = (weapon.weaponData.reloadTime / weapon.reloadMulti).ToString();
+                uiStat2.text = (weapon.weaponData.reloadTime / (weapon.reloadMulti + ConfigSkills.Instance.Reload_1_Value)).ToString();
+                uiPrice.text = ConfigSkills.Instance.Reload_1_Price.ToString();
             }
         };
 
@@ -188,11 +196,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.Demon_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.Demon_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("Demon_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Demon_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Demon_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.DemonCount).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Demon_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.Demon_1_Name;
+                uiDesc.text = ConfigSkills.Instance.Demon_1_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.DemonCount).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.Demon_1_Price.ToString();
             }
         };
 
@@ -207,11 +215,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.Demon_2) || playerSkills.CanUnlock(PlayerSkills.SkillType.Demon_2)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("Demon_2").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Demon_2_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Demon_2_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.DemonCount).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_2_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.Demon_2_Price.ToString();
+                uiName.text = ConfigSkills.Instance.Demon_2_Name;
+                uiDesc.text = ConfigSkills.Instance.Demon_2_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.DemonCount).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_2_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.Demon_2_Price.ToString();
             }
         };
 
@@ -226,11 +234,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.BulletDemon_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.BulletDemon_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("BulletDemon_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.BulletDemon_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.BulletDemon_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.BulletDemonCount).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.BulletDemon_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.BulletDemon_1_Name;
+                uiDesc.text = ConfigSkills.Instance.BulletDemon_1_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.BulletDemonCount).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.BulletDemon_1_Price.ToString();
             }
         };
 
@@ -245,11 +253,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.BulletDemon_2) || playerSkills.CanUnlock(PlayerSkills.SkillType.BulletDemon_2)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("BulletDemon_2").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.BulletDemon_2_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.BulletDemon_2_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.BulletDemonCount).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_2_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.BulletDemon_2_Price.ToString();
+                uiName.text = ConfigSkills.Instance.BulletDemon_2_Name;
+                uiDesc.text = ConfigSkills.Instance.BulletDemon_2_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.BulletDemonCount).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_2_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.BulletDemon_2_Price.ToString();
             }
         };
 
@@ -264,11 +272,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.OrbitDemon_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.OrbitDemon_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("OrbitDemon_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.OrbitDemon_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.OrbitDemon_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.OrbitDemonCount).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.OrbitDemonCount + ConfigSkills.Instance.OrbitDemon_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.OrbitDemon_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.OrbitDemon_1_Name;
+                uiDesc.text = ConfigSkills.Instance.OrbitDemon_1_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.OrbitDemonCount).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.OrbitDemonCount + ConfigSkills.Instance.OrbitDemon_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.OrbitDemon_1_Price.ToString();
             }
         };
 
@@ -283,11 +291,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.MoneyDemon_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.MoneyDemon_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("MoneyDemon_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MoneyDemon_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MoneyDemon_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.MoneyDemonCount).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MoneyDemon_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.MoneyDemon_1_Name;
+                uiDesc.text = ConfigSkills.Instance.MoneyDemon_1_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.MoneyDemonCount).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.MoneyDemon_1_Price.ToString();
             }
         };
 
@@ -302,11 +310,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.MoneyDemon_2) || playerSkills.CanUnlock(PlayerSkills.SkillType.MoneyDemon_2)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("MoneyDemon_2").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MoneyDemon_2_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MoneyDemon_2_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.MoneyDemonCount).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_2_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.MoneyDemon_2_Price.ToString();
+                uiName.text = ConfigSkills.Instance.MoneyDemon_2_Name;
+                uiDesc.text = ConfigSkills.Instance.MoneyDemon_2_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.MoneyDemonCount).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_2_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.MoneyDemon_2_Price.ToString();
             }
         };
 
@@ -321,11 +329,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.DistanceBoost_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.DistanceBoost_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("DistanceBoost_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DistanceBoost_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DistanceBoost_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.distanceBoost).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.distanceBoost + ConfigSkills.Instance.DistanceBoost_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.DistanceBoost_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.DistanceBoost_1_Name;
+                uiDesc.text = ConfigSkills.Instance.DistanceBoost_1_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.distanceBoost).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.distanceBoost + ConfigSkills.Instance.DistanceBoost_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.DistanceBoost_1_Price.ToString();
             }
         };
 
@@ -340,11 +348,11 @@ public class UI_SkillTree : MonoBehaviour
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.FlyingBoost_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.FlyingBoost_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("FlyingBoost_1").position + Vector3.up * 10;
-                skillTooltip.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.FlyingBoost_1_Name;
-                skillTooltip.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.FlyingBoost_1_Desc;
-                skillTooltip.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.flyingBoost).ToString();
-                skillTooltip.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = (RisingEnvironment.Instance.flyingBoost + ConfigSkills.Instance.FlyingBoost_1_Value).ToString();
-                skillTooltip.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = ConfigSkills.Instance.FlyingBoost_1_Price.ToString();
+                uiName.text = ConfigSkills.Instance.FlyingBoost_1_Name;
+                uiDesc.text = ConfigSkills.Instance.FlyingBoost_1_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.flyingBoost).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.flyingBoost + ConfigSkills.Instance.FlyingBoost_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.FlyingBoost_1_Price.ToString();
             }
         };
     }

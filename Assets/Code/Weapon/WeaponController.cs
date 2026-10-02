@@ -11,6 +11,7 @@ public class WeaponController : MonoBehaviour
     public Camera playerCamera;
     [SerializeField] private DamageNumberManager damageNumbers;
     [SerializeField] private WeaponRecoil recoil;
+    [SerializeField] private WeaponRecoilAnimator weaponAni;
 
     private float nextFireTime;
     public int currentAmmo;
@@ -127,6 +128,7 @@ public class WeaponController : MonoBehaviour
     {
         muzzlefire.Play();
         recoil.ApplyRecoil(weaponData.recoilForce, weaponData.recoilForce/4);
+        weaponAni.Fire();
         for (int i = 0; i < weaponData.pellets; i++)
         {
             Vector3 direction = playerCamera.transform.forward;

@@ -19,6 +19,8 @@ public class ShootUpShop : MonoBehaviour, IDamageable
     void OpenShop()
     {
         //StartCoroutine(SlowTimeAndOpenUpgrade());
+        //WeaponController.Instance.currentAmmo += 1; //keine Lösung für Shotgun
+        WeaponController.Instance.enabled = false;
         shopUI.SetActive(true);
         CursorManager.ShowCursor();
         Cursor.lockState = CursorLockMode.None;   // Lock aktiv aufheben

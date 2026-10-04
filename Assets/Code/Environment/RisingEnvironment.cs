@@ -88,7 +88,7 @@ public class RisingEnvironment : MonoBehaviour
 
         if (startnew) //y position komplett zurück setzen
         {
-            float y = Random.Range(TopLevel.transform.position.y, BottomLevel.transform.position.y);
+            float y = Random.Range(TopLevel.transform.position.y, player.transform.position.y -10);
             crate.transform.position = new Vector3(x, y, z);
         }
         else

@@ -363,6 +363,7 @@ public class UI_SkillTree : MonoBehaviour
         CursorManager.HideCursor();
         Cursor.lockState = CursorLockMode.Locked;
         mouseLook.GetComponent<MouseLook>().enabled = true;   // MouseLook wieder an
+        WeaponController.Instance.enabled = true;
     }
 
     public void SetPlayerSkills(PlayerSkills playerSkills) //Holt sich die aktulle Liste der Skills

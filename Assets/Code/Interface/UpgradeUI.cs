@@ -19,7 +19,7 @@ public class UpgradeUI : MonoBehaviour
         manager = upgradeManager;
         gameObject.SetActive(true);
         CursorManager.ShowCursor();
-        mouseLook.GetComponent<MouseLook>().enabled = false;
+        mouseLook.enabled = false;
     }
 
     public void CheckButtons(int stage)
@@ -48,8 +48,9 @@ public class UpgradeUI : MonoBehaviour
         gameObject.SetActive(false);
         CursorManager.HideCursor();
         Cursor.lockState = CursorLockMode.Locked;
-        mouseLook.GetComponent<MouseLook>().enabled = true;
-        manager.ApplyUpgrade();
+        mouseLook.enabled = true;
+        WeaponController.Instance.enabled = true;
+        manager.ApplyUpgrade(); //funktioniert nicht beim WeaponPanel
     }
 
 }

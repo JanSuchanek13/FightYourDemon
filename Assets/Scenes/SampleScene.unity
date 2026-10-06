@@ -750,7 +750,6 @@ GameObject:
   - component: {fileID: 52058780}
   - component: {fileID: 52058784}
   - component: {fileID: 52058783}
-  - component: {fileID: 52058781}
   - component: {fileID: 52058782}
   m_Layer: 5
   m_Name: WeaponPanel
@@ -782,21 +781,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &52058781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52058779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899162da1529078468451a1cc358476b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeUI
-  mouseLook: {fileID: 2023225364}
-  Button1: {fileID: 0}
-  Button2: {fileID: 0}
 --- !u!114 &52058782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18543,9 +18527,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 52058781}
-        m_TargetAssemblyTypeName: UpgradeUI, Assembly-CSharp
-        m_MethodName: SelectUpgrade
+      - m_Target: {fileID: 964377834}
+        m_TargetAssemblyTypeName: ShootUpShop, Assembly-CSharp
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24713,6 +24697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_SkillTree
   weapon: {fileID: 869033647}
+  shop: {fileID: 1834332921}
   skillTooltip: {fileID: 853881996}
   uiName: {fileID: 256139261}
   uiDesc: {fileID: 901618018}
@@ -25578,9 +25563,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 52058781}
-        m_TargetAssemblyTypeName: UpgradeUI, Assembly-CSharp
-        m_MethodName: SelectUpgrade
+      - m_Target: {fileID: 964377834}
+        m_TargetAssemblyTypeName: ShootUpShop, Assembly-CSharp
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26064,9 +26049,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 52058781}
-        m_TargetAssemblyTypeName: UpgradeUI, Assembly-CSharp
-        m_MethodName: SelectUpgrade
+      - m_Target: {fileID: 964377834}
+        m_TargetAssemblyTypeName: ShootUpShop, Assembly-CSharp
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26729,9 +26714,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 52058781}
-        m_TargetAssemblyTypeName: UpgradeUI, Assembly-CSharp
-        m_MethodName: SelectUpgrade
+      - m_Target: {fileID: 964377834}
+        m_TargetAssemblyTypeName: ShootUpShop, Assembly-CSharp
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

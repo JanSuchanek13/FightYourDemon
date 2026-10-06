@@ -6,20 +6,25 @@ public class ShootUpShop : MonoBehaviour, IDamageable
     public GameObject shopUI;
     public MouseLook mouseLook;
     public float slowDownDuration = 1.2f;
+    private bool isOpen;
 
 
     public void TakeDamage(float damage)
     {
         health -= damage;
 
-        if (health <= 0)
+        if (health <= 0 && !isOpen)
+        {
+            isOpen = true;
             OpenShop();
+        }
     }
 
     void OpenShop()
     {
         //StartCoroutine(SlowTimeAndOpenUpgrade());
-        //WeaponController.Instance.currentAmmo += 1; //keine Lösung für Shotgun
+        WeaponController.Instance.currentAmmo += 1; //keine Lösung für Shotgun
+        WeaponController.Instance.ui_Ammo.text = WeaponController.Instance.currentAmmo.ToString();
         WeaponController.Instance.enabled = false;
         shopUI.SetActive(true);
         CursorManager.ShowCursor();
@@ -33,8 +38,10 @@ public class ShootUpShop : MonoBehaviour, IDamageable
         CursorManager.HideCursor();
         Cursor.lockState = CursorLockMode.Locked;
         mouseLook.GetComponent<MouseLook>().enabled = true;
+        WeaponController.Instance.enabled = true;
+        isOpen = false;
 
-        StartCoroutine(ResumeTime());
+        //StartCoroutine(ResumeTime());
     }
 
     System.Collections.IEnumerator SlowTimeAndOpenUpgrade()

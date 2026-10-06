@@ -10,6 +10,7 @@ public class UI_SkillTree : MonoBehaviour
 {
     private PlayerSkills playerSkills;
     [SerializeField] private WeaponController weapon;
+    [SerializeField] private ShootUpShop shop;
 
     public GameObject skillTooltip;
     [SerializeField] private TMP_Text uiName;
@@ -359,11 +360,8 @@ public class UI_SkillTree : MonoBehaviour
 
     public void CloseSkillTree()
     {
-        gameObject.transform.parent.gameObject.SetActive(false);
-        CursorManager.HideCursor();
-        Cursor.lockState = CursorLockMode.Locked;
-        mouseLook.GetComponent<MouseLook>().enabled = true;   // MouseLook wieder an
-        WeaponController.Instance.enabled = true;
+        //gameObject.transform.parent.gameObject.SetActive(false);
+        shop.ResumeGame();
     }
 
     public void SetPlayerSkills(PlayerSkills playerSkills) //Holt sich die aktulle Liste der Skills

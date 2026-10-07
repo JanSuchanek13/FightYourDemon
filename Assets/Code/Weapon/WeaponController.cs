@@ -127,17 +127,18 @@ public class WeaponController : MonoBehaviour
     void Shoot()
     {
         muzzlefire.Play();
+        AudioManager.Instance.Play2D(weaponData.shootSound, weaponData.shootVolume);
         recoil.ApplyRecoil(weaponData.recoilForce, weaponData.recoilForce/4);
         weaponAni.Fire();
+
+        ui_Ammo.text = currentAmmo.ToString();
+        ui_MaxAmmo.text = currentmaxAmmo.ToString();
+
         for (int i = 0; i < weaponData.pellets; i++)
         {
             Vector3 direction = playerCamera.transform.forward;
             direction += Random.insideUnitSphere * weaponData.spread;
             direction.Normalize();
-
-            sound_shot.Play();
-            ui_Ammo.text = currentAmmo.ToString();
-            ui_MaxAmmo.text = currentmaxAmmo.ToString();
 
             if (weaponData.useProjectile)
             {

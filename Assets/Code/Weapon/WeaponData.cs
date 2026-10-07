@@ -35,4 +35,8 @@ public class WeaponData : ScriptableObject
     [Header("Effects")]
     public GameObject muzzleFlash;
     public GameObject hitEffect;
+
+    [Header("Sound")]
+    public AudioClip shootSound;
+    [Range(0f, 1f)] public float shootVolume = 1f;
 }

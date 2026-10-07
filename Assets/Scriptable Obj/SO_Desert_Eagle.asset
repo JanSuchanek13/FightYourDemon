@@ -27,3 +27,5 @@ MonoBehaviour:
   projectileSpeed: 30
   muzzleFlash: {fileID: 0}
   hitEffect: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: 2f5c2b25398993a40bf180a928eae2ae, type: 3}
+  shootVolume: 1

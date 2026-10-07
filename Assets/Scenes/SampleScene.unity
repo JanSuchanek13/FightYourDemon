@@ -14821,7 +14821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaae90728d8782047be5124852ee6b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
-  weaponData: {fileID: 11400000, guid: ca2402d6351251d4291dfb8b316f4c33, type: 2}
+  weaponData: {fileID: 11400000, guid: c58b7b981fdbef94e860c3ebb4247b93, type: 2}
   firePoint: {fileID: 1415201925}
   playerCamera: {fileID: 330585545}
   damageNumbers: {fileID: 631962016}
@@ -22580,6 +22580,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5052009491115425683, guid: 67231885510e3574f87e891858d31992, type: 3}
   m_PrefabInstance: {fileID: 1681801479}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1562942665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1562942667}
+  - component: {fileID: 1562942666}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1562942666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562942665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee86f2439dbf3454a9c83ca0c96a3c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  mixer: {fileID: 24100000, guid: 5ba69e2aeb6da8549bf31d518712fd96, type: 2}
+  sfxGroup: {fileID: 608327645328787496, guid: 5ba69e2aeb6da8549bf31d518712fd96, type: 2}
+  uiGroup: {fileID: 8379989829076268937, guid: 5ba69e2aeb6da8549bf31d518712fd96, type: 2}
+  poolSize: 16
+  max3DDistance: 50
+--- !u!4 &1562942667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562942665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 498.80118, y: 320.30197, z: 1438.9452}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1575382002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28924,3 +28973,4 @@ SceneRoots:
   - {fileID: 1879326608}
   - {fileID: 1230062837}
   - {fileID: 1853947360}
+  - {fileID: 1562942667}

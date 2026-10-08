@@ -587,17 +587,27 @@ MonoBehaviour:
   moneyValue: 10
   bulletValue: 0
   stage2healthMulti: 3.3
+  stage3healthMulti: 6.6
+  stage4healthMulti: 6.6
   stage2BoostForceMulti: 0.9
+  stage3BoostForceMulti: 0.7
+  stage4BoostForceMulti: 0.7
+  stage2money: 20
+  stage3money: 50
+  stage4money: 50
   m_damage0: {fileID: 0}
   m_damage: {fileID: 2100000, guid: 159fbe281c0c6464f97a65c122b98deb, type: 2}
   m_damage1: {fileID: 2100000, guid: 3b7039c8e7222c14c96162fe48f33fe7, type: 2}
   m_demon: {fileID: 2100000, guid: dd588a8050c05c84381cca198473d5d2, type: 2}
   m_stage1: {fileID: 0}
   m_stage2: {fileID: 0}
+  m_stage3: {fileID: 0}
+  m_stage4: {fileID: 0}
   currentlyAssignedMaterials: []
   killPuffPrefab: {fileID: 490985382271906017, guid: bd9946d9627280d489341a232db33b62, type: 3}
   killPerfectPuffPrefab: {fileID: 490985382271906017, guid: 16b5b4d6e032d72409802d41b6405455, type: 3}
   killLootPrefab: {fileID: 4500610251428939324, guid: bf990af5b0b31b14d893f56659601676, type: 3}
+  deathSound: {fileID: 8300000, guid: ceb5b4f324b9c304d86b4fc6bf6a2870, type: 3}
 --- !u!1 &2490240957914894639
 GameObject:
   m_ObjectHideFlags: 0

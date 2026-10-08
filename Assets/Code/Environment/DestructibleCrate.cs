@@ -40,6 +40,9 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
     [SerializeField] private ParticleSystem killPerfectPuffPrefab;
     [SerializeField] private ParticleSystem killLootPrefab;
 
+    [Header("Sound")]
+    public AudioClip deathSound;
+
     private MeshRenderer renderer;
     private Collider collider;
 
@@ -140,6 +143,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
             ImpactEffectPool.Instance.Play(killLootPrefab, transform.position, transform.rotation);
         }
         ImpactEffectPool.Instance.Play(killPuffPrefab, transform.position, transform.rotation);
+        AudioManager.Instance.Play3D(deathSound, transform.position);
         WeaponController.Instance.currentmaxAmmo += bulletValue;
         MoneyManager.Instance.AddMoney(moneyValue);
         RisingEnvironment.Instance.BoostPlayer(playerBoostForce, transform.position);

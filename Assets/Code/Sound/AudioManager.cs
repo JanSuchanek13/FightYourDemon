@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer mixer;
     [SerializeField] private AudioMixerGroup sfxGroup;
     [SerializeField] private AudioMixerGroup uiGroup;
+    [SerializeField] private AudioMixerGroup musicGroup;
 
     [Header("3D-Pool")]
     [Tooltip("Wie viele 3D-Quellen gleichzeitig spielen koennen")]
@@ -19,6 +20,7 @@ public class AudioManager : MonoBehaviour
 
     // 2D-Quelle fuer Schuesse/UI
     private AudioSource _source2D;
+    private AudioSource _sourceMusic;
 
     // 3D-Pool
     private readonly List<AudioSource> _pool3D = new List<AudioSource>();
@@ -43,6 +45,12 @@ public class AudioManager : MonoBehaviour
         _source2D.playOnAwake = false;
         _source2D.spatialBlend = 0f;          // 2D
         _source2D.outputAudioMixerGroup = sfxGroup;
+
+        // --- eigene Music-Quelle ---
+        _sourceMusic = gameObject.AddComponent<AudioSource>();
+        _sourceMusic.playOnAwake = false;
+        _sourceMusic.spatialBlend = 0f;              // Musik ist 2D
+        _sourceMusic.outputAudioMixerGroup = musicGroup;
 
         // --- 3D-Pool ---
         for (int i = 0; i < poolSize; i++)
@@ -96,5 +104,11 @@ public class AudioManager : MonoBehaviour
 
         // alle belegt -> die erste (aelteste) nehmen
         return _pool3D[0];
+    }
+
+    public void PlayMusicPreview(AudioClip clip, float volume = 1f)
+    {
+        if (clip == null) return;
+        _sourceMusic.PlayOneShot(clip, volume);
     }
 }

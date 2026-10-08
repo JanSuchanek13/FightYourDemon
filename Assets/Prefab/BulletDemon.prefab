@@ -448,6 +448,7 @@ MonoBehaviour:
   killPuffPrefab: {fileID: 490985382271906017, guid: bd9946d9627280d489341a232db33b62, type: 3}
   killPerfectPuffPrefab: {fileID: 490985382271906017, guid: 16b5b4d6e032d72409802d41b6405455, type: 3}
   killLootPrefab: {fileID: 4500610251428939324, guid: 27309f04cf1e14a448ccc22164777f63, type: 3}
+  deathSound: {fileID: 8300000, guid: ceb5b4f324b9c304d86b4fc6bf6a2870, type: 3}
 --- !u!1 &2190368175071269726
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 663929286935574279, guid: 484e6534213f59b47aecebb41520b076, type: 3}
   projectileSpeed: 30
   muzzleFlash: {fileID: 0}
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 4432895383785984612, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
   shootSound: {fileID: 8300000, guid: 2f5c2b25398993a40bf180a928eae2ae, type: 3}
   shootVolume: 0.902

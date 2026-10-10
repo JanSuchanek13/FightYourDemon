@@ -24,6 +24,7 @@ public class WeaponController : MonoBehaviour
     public ParticleSystem muzzlefire;
     [SerializeField] private ParticleSystem hitSparkPrefab;
     [SerializeField] private BulletHolePool holePool;
+    private const float HitEffectOffset = 0.6f; 
 
     public TMPro.TextMeshProUGUI ui_Ammo;
     public TMPro.TextMeshProUGUI ui_MagSize;
@@ -183,6 +184,8 @@ public class WeaponController : MonoBehaviour
                     damageable.TakeDamage(dmg);
                     // Schadenszahl genau am Einschlagpunkt
                     damageNumbers.Show(dmg, hit.point, Color.white);
+                    Vector3 pos = hit.point - direction * HitEffectOffset;          //Demon Treffer Effekt
+                    ImpactEffectPool.Instance.Play(weaponData.hitEffect, pos, rot);
                 }
                 
             }
@@ -233,6 +236,8 @@ public class WeaponController : MonoBehaviour
                     damageable.TakeDamage(dmg);
                     // Schadenszahl genau am Einschlagpunkt
                     damageNumbers.Show(dmg, hit.point, Color.white);
+                    Vector3 pos = hit.point - direction * HitEffectOffset;          //Demon Treffer Effekt
+                    ImpactEffectPool.Instance.Play(weaponData.hitEffect, pos, rot);
                 }
 
             }

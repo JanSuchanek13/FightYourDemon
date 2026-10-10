@@ -441,7 +441,7 @@ MonoBehaviour:
   m_stage3: {fileID: 2100000, guid: ce5acebefe37b774f9fe038be54d09dc, type: 2}
   m_stage4: {fileID: 2100000, guid: cfffc4c495cc0aa49a6dd386c1ca23e9, type: 2}
   currentlyAssignedMaterials: []
-  killPuffPrefab: {fileID: 490985382271906017, guid: bd9946d9627280d489341a232db33b62, type: 3}
+  killPuffPrefab: {fileID: 8774075410129781828, guid: dbb88d1516ed67b47a9a590e171e8813, type: 3}
   killPerfectPuffPrefab: {fileID: 490985382271906017, guid: 16b5b4d6e032d72409802d41b6405455, type: 3}
   killLootPrefab: {fileID: 4500610251428939324, guid: 9a4e83f638d2a104da52ddc93941aaae, type: 3}
   deathSound: {fileID: 8300000, guid: ceb5b4f324b9c304d86b4fc6bf6a2870, type: 3}

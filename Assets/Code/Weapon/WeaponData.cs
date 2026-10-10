@@ -34,7 +34,7 @@ public class WeaponData : ScriptableObject
 
     [Header("Effects")]
     public GameObject muzzleFlash;
-    public GameObject hitEffect;
+    public ParticleSystem hitEffect;
 
     [Header("Sound")]
     public AudioClip shootSound;

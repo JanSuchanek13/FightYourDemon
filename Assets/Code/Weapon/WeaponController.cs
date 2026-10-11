@@ -1,5 +1,7 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Rendering;
+using static Unity.VisualScripting.Member;
 
 public class WeaponController : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class WeaponController : MonoBehaviour
     
 
     public AudioSource sound_shot;
+    private int lastIndex = -1;
     public ParticleSystem muzzlefire;
     [SerializeField] private ParticleSystem hitSparkPrefab;
     [SerializeField] private BulletHolePool holePool;
@@ -128,7 +131,7 @@ public class WeaponController : MonoBehaviour
     void Shoot()
     {
         muzzlefire.Play();
-        AudioManager.Instance.Play2D(weaponData.shootSound, weaponData.shootVolume);
+        PlayRandomSound();
         recoil.ApplyRecoil(weaponData.recoilForce, weaponData.recoilForce/4);
         weaponAni.Fire();
 
@@ -255,6 +258,21 @@ public class WeaponController : MonoBehaviour
         GameObject proj = Instantiate(weaponData.projectilePrefab, firePoint.position, Quaternion.identity);
         proj.GetComponent<Rigidbody>().linearVelocity = direction * weaponData.projectileSpeed;
         proj.GetComponent<Projectile>().damage = weaponData.damage;
+    }
+
+    public void PlayRandomSound()
+    {
+        int count = weaponData.clips.Length;
+        if (count == 0) return;
+
+        int index = Random.Range(0, count);
+
+        // Denselben Sound nicht zweimal hintereinander spielen
+        if (count > 1 && index == lastIndex)
+            index = (index + 1 + Random.Range(0, count - 1)) % count;
+
+        lastIndex = index;
+        AudioManager.Instance.Play2D(weaponData.clips[index], weaponData.shootVolume);
     }
 
     public void ChangeWeapon(WeaponData weapon)

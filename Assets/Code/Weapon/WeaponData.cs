@@ -37,6 +37,6 @@ public class WeaponData : ScriptableObject
     public ParticleSystem hitEffect;
 
     [Header("Sound")]
-    public AudioClip shootSound;
+    public AudioClip[] clips = new AudioClip[4];
     [Range(0f, 1f)] public float shootVolume = 1f;
 }

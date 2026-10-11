@@ -36,9 +36,13 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
     public Material m_stage3;
     public Material m_stage4;
     public Material[] currentlyAssignedMaterials;
+    [SerializeField] private EnemyDamageScale damageScale;
+
+    [Header("Particle Effects")]
     [SerializeField] private ParticleSystem killPuffPrefab;
     [SerializeField] private ParticleSystem killPerfectPuffPrefab;
     [SerializeField] private ParticleSystem killLootPrefab;
+
 
     [Header("Sound")]
     public AudioClip deathSound;
@@ -55,7 +59,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
     {
         renderer = this.transform.GetChild(0).GetComponent<MeshRenderer>();
         collider = this.GetComponent<Collider>();
-        normalScale = gameObject.transform.localScale.x;
+        normalScale = gameObject.transform.localScale.x; //unnötig?
 
         stage1health = maxhealth;
         stage1BoostForce = playerBoostForce;
@@ -91,8 +95,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
             Break();
 
         //Juice bei Schaden
-        float scale = (1 - (Mathf.Clamp(health, 0, maxhealth) / maxhealth)) *0.1f + normalScale;
-        this.transform.localScale = new Vector3(scale, scale, scale);
+        damageScale.OnHealthChanged(health, maxhealth);
 
         if(_demonClass != demonClass.OrbitDemon)
         {
@@ -179,7 +182,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
             newstage = currentstage;
         }
 
-        this.transform.localScale = new Vector3(normalScale, normalScale, normalScale);
+        damageScale.ResetScale();
         collider.enabled = true;
 
         if (_demonClass == demonClass.Demon) //nur bei normalen demonen die Farbe ändern

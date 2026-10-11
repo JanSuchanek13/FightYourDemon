@@ -492,6 +492,7 @@ GameObject:
   - component: {fileID: 3327278700629085471}
   - component: {fileID: 6863027380343724505}
   - component: {fileID: 8145526072814124002}
+  - component: {fileID: 7987590094427298962}
   m_Layer: 0
   m_Name: MoneyDemon
   m_TagString: Untagged
@@ -604,10 +605,27 @@ MonoBehaviour:
   m_stage3: {fileID: 0}
   m_stage4: {fileID: 0}
   currentlyAssignedMaterials: []
+  damageScale: {fileID: 7987590094427298962}
   killPuffPrefab: {fileID: 8774075410129781828, guid: dbb88d1516ed67b47a9a590e171e8813, type: 3}
   killPerfectPuffPrefab: {fileID: 490985382271906017, guid: 16b5b4d6e032d72409802d41b6405455, type: 3}
   killLootPrefab: {fileID: 4500610251428939324, guid: bf990af5b0b31b14d893f56659601676, type: 3}
   deathSound: {fileID: 8300000, guid: ceb5b4f324b9c304d86b4fc6bf6a2870, type: 3}
+--- !u!114 &7987590094427298962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929638077769185236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ce46a3af64bc7418f309b78c569fb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDamageScale
+  normalScale: 1
+  maxExtraScale: 0.6
+  curvePower: 2.5
+  smoothTime: 0.12
 --- !u!1 &2490240957914894639
 GameObject:
   m_ObjectHideFlags: 0

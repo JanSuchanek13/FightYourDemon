@@ -14,21 +14,25 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private DamageNumberManager damageNumbers;
     [SerializeField] private WeaponRecoil recoil;
     [SerializeField] private WeaponRecoilAnimator weaponAni;
+    [SerializeField] private ShootZoom shootZoom;
 
     private float nextFireTime;
     public int currentAmmo;
     public int maxAmmo = 20;
     public int currentmaxAmmo;
 
-    
 
+    [Header("Effects")]
     public AudioSource sound_shot;
     private int lastIndex = -1;
     public ParticleSystem muzzlefire;
     [SerializeField] private ParticleSystem hitSparkPrefab;
     [SerializeField] private BulletHolePool holePool;
-    private const float HitEffectOffset = 0.6f; 
+    private const float HitEffectOffset = 0.6f;
+    [SerializeField] private BulletTrailPool trailPool;
+    [SerializeField] private Transform muzzle;
 
+    [Header("UI")]
     public TMPro.TextMeshProUGUI ui_Ammo;
     public TMPro.TextMeshProUGUI ui_MagSize;
     public TMPro.TextMeshProUGUI ui_MaxAmmo;
@@ -130,6 +134,7 @@ public class WeaponController : MonoBehaviour
 
     void Shoot()
     {
+        shootZoom.AddZoom();
         muzzlefire.Play();
         PlayRandomSound();
         recoil.ApplyRecoil(weaponData.recoilForce, weaponData.recoilForce/4);
@@ -163,15 +168,19 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    void RaycastShoot(Vector3 direction)
+    void RaycastShoot(Vector3 direction) //!! Alle Anpassungen auhc bei Piercing Shot machen !!
     {
+        //für BulletTrail
+        Vector3 start = muzzle.position;
+        Vector3 end;
+
         if (Physics.Raycast(playerCamera.transform.position, direction, out RaycastHit hit, weaponData.range))
         {
+            end = hit.point;   // Trail endet am Einschlag
+
             // statt Instantiate: gepoolten Effekt an der Einschlagstelle abspielen
             Quaternion rot = Quaternion.LookRotation(hit.normal);
             
-
-
             if (hit.collider.TryGetComponent(out IDamageable damageable))
             {
                 float dmg = (weaponData.damage + damageAdd) * damageMulti;//Brechnugn vom Schaden
@@ -206,10 +215,22 @@ public class WeaponController : MonoBehaviour
                 Instantiate(weaponData.hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
             */
         }
+        else
+        {
+            // kein Treffer: Trail bis zur maximalen Reichweite
+            end = playerCamera.transform.position + direction * weaponData.range;
+        }
+        trailPool.Spawn(start, end); //setzt Bulletrail
     }
 
     void RaycastPiercingShot(Vector3 direction)
     {
+        //für BulletTrail
+        Vector3 start = muzzle.position;
+        Vector3 end;
+        end = playerCamera.transform.position + direction * weaponData.range; //Trail bis zur maximalen Reichweite
+        trailPool.Spawn(start, end); //setzt Bulletrail
+
         RaycastHit[] hits = Physics.RaycastAll(
             playerCamera.transform.position,
             direction,

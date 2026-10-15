@@ -569,5 +569,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126daaa4dd4778349aa70dde487da9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitFlash
-  flashDuration: 0.15
-  maxFlash: 0.797
+  flashDuration: 0.2
+  maxFlash: 0.901

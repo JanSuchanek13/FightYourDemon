@@ -308,9 +308,9 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
             // Rotation wackeln lassen
             transform.localRotation = originalRotation *
                                       Quaternion.Euler(
-                                          x * intensity * 10f,
-                                          y * intensity * 10f,
-                                          z * intensity * 10f
+                                          x * intensity * 120f,
+                                          y * intensity * 120f,
+                                          z * intensity * 120f
                                       );
 
             yield return null;

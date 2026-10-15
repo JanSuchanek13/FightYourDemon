@@ -15369,6 +15369,7 @@ GameObject:
   - component: {fileID: 869033648}
   - component: {fileID: 869033647}
   - component: {fileID: 869033649}
+  - component: {fileID: 869033650}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -15394,6 +15395,7 @@ MonoBehaviour:
   damageNumbers: {fileID: 631962016}
   recoil: {fileID: 330585548}
   weaponAni: {fileID: 869033649}
+  shootZoom: {fileID: 869033650}
   currentAmmo: 0
   maxAmmo: 20
   currentmaxAmmo: 0
@@ -15401,6 +15403,8 @@ MonoBehaviour:
   muzzlefire: {fileID: 1204697100}
   hitSparkPrefab: {fileID: 3873918047636305544, guid: 0dca224dd9f92ec429655ce914ee1945, type: 3}
   holePool: {fileID: 1853947361}
+  trailPool: {fileID: 1853947363}
+  muzzle: {fileID: 1204697097}
   ui_Ammo: {fileID: 429811411}
   ui_MagSize: {fileID: 2065637870}
   ui_MaxAmmo: {fileID: 1173133614}
@@ -15449,6 +15453,22 @@ MonoBehaviour:
   tiltMaxAngle: 10
   tiltStiffness: 120
   tiltDamping: 18
+--- !u!114 &869033650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869033646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc35267dc4a72a479b6156c884447f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootZoom
+  cam: {fileID: 330585545}
+  zoomPerShot: 1.5
+  maxZoom: 8
+  returnSpeed: 4
 --- !u!4 &875958782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5052009491115425683, guid: 67231885510e3574f87e891858d31992, type: 3}
@@ -27466,6 +27486,7 @@ GameObject:
   - component: {fileID: 1853947359}
   - component: {fileID: 1853947361}
   - component: {fileID: 1853947362}
+  - component: {fileID: 1853947363}
   m_Layer: 0
   m_Name: EffectManager
   m_TagString: Untagged
@@ -27567,6 +27588,19 @@ MonoBehaviour:
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
   maxComboForColor: 10
+--- !u!114 &1853947363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853947358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23f5d4a4c3cdd04c954e047e5a639e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletTrailPool
+  prefab: {fileID: 5900385034443113890, guid: d0d8d578502e4084dacd863640531cf8, type: 3}
 --- !u!1 &1858466607
 GameObject:
   m_ObjectHideFlags: 0

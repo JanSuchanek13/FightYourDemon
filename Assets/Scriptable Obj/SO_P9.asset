@@ -28,5 +28,5 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   hitEffect: {fileID: 4432895383785984612, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
   clips:
-  - {fileID: 8300000, guid: c3d982b9682eb31438d8d4ece668b61f, type: 3}
+  - {fileID: 8300000, guid: 9334094cdfe08ba47b35731a4a46ea73, type: 3}
   shootVolume: 0.902

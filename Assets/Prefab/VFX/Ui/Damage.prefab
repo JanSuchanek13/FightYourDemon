@@ -100,7 +100,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -165,8 +165,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageNumber
   text: {fileID: 2448543351576154678}
   canvasGroup: {fileID: 4899909011002741943}
-  lifetime: 1
+  lifetime: 1.5
   floatSpeed: 1.5
-  popScale: 1.5
-  popReturnSpeed: 10
+  popScale: 1.8
+  popReturnSpeed: 14
   maxTilt: 15
+  launchUp: 5.28
+  launchSide: 2
+  gravity: 9
+  randomness: 0.6

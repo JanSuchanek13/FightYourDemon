@@ -16,12 +16,24 @@ public class DamageNumber : MonoBehaviour
     [Header("Random Tilt")]
     [SerializeField] private float maxTilt = 15f;   // max. Neigung in Grad (+/-)
 
+    [Header("Flugbahn")]
+    [Tooltip("Anfangs-Geschwindigkeit nach oben")]
+    [SerializeField] private float launchUp = 3.5f;
+    [Tooltip("Seitliche Geschwindigkeit (links/rechts)")]
+    [SerializeField] private float launchSide = 2f;
+    [Tooltip("Schwerkraft, die die Zahl wieder runterzieht")]
+    [SerializeField] private float gravity = 9f;
+    [Tooltip("Zufaellige Streuung, damit nicht alle gleich fliegen")]
+    [SerializeField] private float randomness = 0.6f;
+
     private float _timer;
     private Vector3 _worldPos;       // Position im Raum, an der die Zahl haengt
+    private Vector3 _velocity;
     private Vector3 _baseScale;
     private Camera _cam;
     private RectTransform _rect;
     private Action<DamageNumber> _onDone;
+    private static int _sideToggle = 1; // wechselt bei jedem Spawn zwischen links und rechts
 
     void Awake()
     {
@@ -38,25 +50,34 @@ public class DamageNumber : MonoBehaviour
         text.text = Mathf.RoundToInt(damage).ToString();
         text.color = color;                          // Farbe uebernehmen
         canvasGroup.alpha = 1f;
+
+
+        // Pop: gross starten, Update schrumpft zurueck
         transform.localScale = _baseScale * popScale;
 
-        // zufaellige Neigung
-        float tilt = UnityEngine.Random.Range(-maxTilt, maxTilt);
-        transform.localRotation = Quaternion.Euler(0f, 0f, tilt);
+        // zufaellige leichte Neigung
+        transform.localRotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-15f, 15f));
+
+        // --- Startgeschwindigkeit: schraeg raus, abwechselnd links/rechts ---
+        _sideToggle *= -1; // umschalten
+        float side = launchSide * _sideToggle
+                   + UnityEngine.Random.Range(-randomness, randomness);
+        float up = launchUp + UnityEngine.Random.Range(-randomness, randomness);
+        _velocity = new Vector3(side, up, 0f);
 
         _timer = lifetime;
-
         gameObject.SetActive(true);
         UpdateScreenPosition();
     }
 
     void Update()
     {
-        // im Raum nach oben schweben
-        _worldPos += Vector3.up * floatSpeed * Time.deltaTime;
+        // Flugbahn: Schwerkraft auf die Geschwindigkeit, dann Position bewegen
+        _velocity.y -= gravity * Time.deltaTime;
+        _worldPos += _velocity * Time.deltaTime;
         UpdateScreenPosition();
 
-        // Aufpopp-Scale zurueck
+        // Pop-Scale schnell zurueck zur Normalgroesse
         transform.localScale = Vector3.Lerp(transform.localScale, _baseScale,
                                             Time.deltaTime * popReturnSpeed);
 

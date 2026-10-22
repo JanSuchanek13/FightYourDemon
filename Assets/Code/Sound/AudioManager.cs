@@ -85,7 +85,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // --- 3D: Treffer, Explosionen an einer Weltposition ---
-    public void Play3D(AudioClip clip, Vector3 position, float volume = 1f)
+    public void Play3D(AudioClip clip, Vector3 position, float volume = 1f, float pitch = 1f)
     {
         if (clip == null) return;
 
@@ -93,6 +93,7 @@ public class AudioManager : MonoBehaviour
         src.transform.position = position;
         src.clip = clip;
         src.volume = volume;
+        src.pitch = pitch;      // Pitch setzen
         src.Play();
     }
 

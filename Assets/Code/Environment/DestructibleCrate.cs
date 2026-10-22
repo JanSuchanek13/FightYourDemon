@@ -46,6 +46,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
 
     [Header("Sound")]
     public AudioClip deathSound;
+    public float pitch;
 
     private MeshRenderer renderer;
     private Collider collider;
@@ -122,13 +123,16 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
                 }
             }
 
+            float delay = 0f;
+            pitch = 1f;
+            ExplosionStagger.Instance.GetStagger(out delay, out pitch);
             if (activeHorns == 0)
             {
-                Invoke("BreakPerfect", 0.2f);
+                Invoke("BreakPerfect", delay + 0.2f);
             }
             else
             {
-                Invoke("Break2", 0.2f);
+                Invoke("Break2", delay + 0.2f);
             }
         }
         
@@ -139,14 +143,14 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         collider.enabled = false;
     }
 
-    void Break2()
+    void Break2() //Änderungen auch bei BreakPerfect ergänzen
     {
         if(_demonClass != demonClass.ArcaneDemon)
         {
             ImpactEffectPool.Instance.Play(killLootPrefab, transform.position, transform.rotation);
         }
         ImpactEffectPool.Instance.Play(killPuffPrefab, transform.position, transform.rotation);
-        AudioManager.Instance.Play3D(deathSound, transform.position);
+        AudioManager.Instance.Play3D(deathSound, transform.position, 1f, pitch);
         WeaponController.Instance.currentmaxAmmo += bulletValue;
         MoneyManager.Instance.AddMoney(moneyValue);
         RisingEnvironment.Instance.BoostPlayer(playerBoostForce, transform.position);
@@ -157,13 +161,14 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         isbreaking = false;
     }
 
-    void BreakPerfect()
+    void BreakPerfect() //Änderungen auch bei Break2 ergänzen
     {
         if (_demonClass != demonClass.ArcaneDemon)
         {
             ImpactEffectPool.Instance.Play(killLootPrefab, transform.position, transform.rotation);
         }
         ImpactEffectPool.Instance.Play(killPerfectPuffPrefab, transform.position, transform.rotation);
+        AudioManager.Instance.Play3D(deathSound, transform.position, 1f, pitch);
         WeaponController.Instance.currentmaxAmmo += bulletValue;
         MoneyManager.Instance.AddMoney(moneyValue);
         RisingEnvironment.Instance.BoostPlayer(playerBoostForce, transform.position);

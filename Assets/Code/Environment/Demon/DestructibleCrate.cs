@@ -4,7 +4,7 @@ using System.Collections;
 
 public class DestructibleCrate : MonoBehaviour, IDamageable
 {
-    public enum demonClass {Demon, MoneyDemon, ArcaneDemon, BulletDemon, OrbitDemon}
+    public enum demonClass {Demon, MoneyDemon, ArcaneDemon, BulletDemon, OrbitDemon, BombDemon}
     public demonClass _demonClass;
 
     public float health;
@@ -43,6 +43,8 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
     [SerializeField] private ParticleSystem killPerfectPuffPrefab;
     [SerializeField] private ParticleSystem killLootPrefab;
 
+    [Header("Effects")]
+    [SerializeField] private float camShake = 0.2f;
 
     [Header("Sound")]
     public AudioClip deathSound;
@@ -149,7 +151,12 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         {
             ImpactEffectPool.Instance.Play(killLootPrefab, transform.position, transform.rotation);
         }
+        if (_demonClass == demonClass.BombDemon)
+        {
+            GetComponent<ExplosionDamage>().Explode(transform.position);  
+        }
         ImpactEffectPool.Instance.Play(killPuffPrefab, transform.position, transform.rotation);
+        CameraShake.Instance.AddShake(camShake);
         AudioManager.Instance.Play3D(deathSound, transform.position, 1f, pitch);
         WeaponController.Instance.currentmaxAmmo += bulletValue;
         MoneyManager.Instance.AddMoney(moneyValue);
@@ -167,7 +174,12 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         {
             ImpactEffectPool.Instance.Play(killLootPrefab, transform.position, transform.rotation);
         }
+        if (_demonClass == demonClass.BombDemon)
+        {
+            GetComponent<ExplosionDamage>().Explode(transform.position);
+        }
         ImpactEffectPool.Instance.Play(killPerfectPuffPrefab, transform.position, transform.rotation);
+        CameraShake.Instance.AddShake(camShake);
         AudioManager.Instance.Play3D(deathSound, transform.position, 1f, pitch);
         WeaponController.Instance.currentmaxAmmo += bulletValue;
         MoneyManager.Instance.AddMoney(moneyValue);

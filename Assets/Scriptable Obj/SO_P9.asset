@@ -26,7 +26,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 663929286935574279, guid: 484e6534213f59b47aecebb41520b076, type: 3}
   projectileSpeed: 30
   muzzleFlash: {fileID: 0}
-  hitEffect: {fileID: 4432895383785984612, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+  hitEffect: {fileID: 2861108828627320043, guid: e03f437f79b3ac14bb22bc2ad4b5b8d7, type: 3}
   clips:
   - {fileID: 8300000, guid: 9cf0f8431b7b0e346bbff229c11260aa, type: 3}
   - {fileID: 8300000, guid: f0e282fb5f4d001479c7d68b9f502432, type: 3}

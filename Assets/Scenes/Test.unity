@@ -338,7 +338,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1001 &7473148185699021930
+--- !u!1001 &6041605726682273183
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -346,59 +346,59 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
+    - target: {fileID: 8348611668659411660, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
+      propertyPath: m_Name
+      value: CFXR3 Magic Aura B (Runic)
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.8591218
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.45677137
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 203112519928049494, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+    - target: {fileID: 8348611668659411699, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2834219765642888377, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
-      propertyPath: m_Name
-      value: CFXR3 Hit Light C (Air)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 87e982a2a38d1dd45b115a3e80da8ee4, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: db0e353eda9ee3f4b8c780c3bb8bbaa3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1363894774}
   - {fileID: 1900692524}
-  - {fileID: 7473148185699021930}
+  - {fileID: 6041605726682273183}

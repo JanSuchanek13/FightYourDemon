@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8941349892340991204}
   - component: {fileID: 2448543351576154678}
   - component: {fileID: 4899909011002741943}
-  - component: {fileID: 1605712260510713046}
+  - component: {fileID: 6357929530393460956}
   m_Layer: 5
   m_Name: Damage
   m_TagString: Untagged
@@ -151,7 +151,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1605712260510713046
+--- !u!114 &6357929530393460956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,11 +166,9 @@ MonoBehaviour:
   text: {fileID: 2448543351576154678}
   canvasGroup: {fileID: 4899909011002741943}
   lifetime: 1.5
-  floatSpeed: 1.5
   popScale: 1.8
   popReturnSpeed: 14
-  maxTilt: 15
-  launchUp: 5.28
+  launchUp: 5.3
   launchSide: 2
   gravity: 9
   randomness: 0.6

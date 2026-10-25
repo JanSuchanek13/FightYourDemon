@@ -1,6 +1,6 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class RisingEnvironment : MonoBehaviour
 {
@@ -28,6 +28,15 @@ public class RisingEnvironment : MonoBehaviour
     public int ArcaneDemonCount;
     public int OrbitDemonCount;
 
+    [Header("Particle Effects")]
+    [SerializeField] private ParticleSystem SpawnPrefab;
+    [SerializeField] private float resetDelay = 0.5f;
+    private WaitForSeconds resetWait;
+    private readonly HashSet<GameObject> pendingResets = new HashSet<GameObject>();
+
+    [Header("Sounds")]
+    public AudioClip hitGroundSound;
+
     [Header("Boss")]
     public int bossCount;
 
@@ -47,18 +56,23 @@ public class RisingEnvironment : MonoBehaviour
 
         DemonCount = transform.GetChild(0).childCount;
         UpdateDemonList();
+
+        resetWait = new WaitForSeconds(resetDelay);
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (var item in crates)
+        float limitY = BottomLevel.transform.position.y;
+
+        for (int i = 0; i < crates.Count; i++)
         {
-            if(item.transform.position.y < BottomLevel.transform.position.y)
-            {
-                //Debug.Log("under the Limit");
-                ResetCrate(item, false);
-            }
+            GameObject item = crates[i];
+
+            if (item.transform.position.y >= limitY) continue;
+            if (!pendingResets.Add(item)) continue; // läuft schon -> überspringen
+
+            ResetCrate(item, false);
         }
     }
 
@@ -73,6 +87,7 @@ public class RisingEnvironment : MonoBehaviour
 
     public void StartNew()
     {
+        AudioManager.Instance.Play2D(hitGroundSound, 1f);
         foreach (var item in crates)
         {
             ResetCrate(item, true);
@@ -90,14 +105,34 @@ public class RisingEnvironment : MonoBehaviour
         {
             float y = Random.Range(TopLevel.transform.position.y, player.transform.position.y -10);
             crate.transform.position = new Vector3(x, y, z);
+            StartCoroutine(ResetCrate2Routine(crate, new Vector3(x, y, z)));
         }
         else
         {
-            float y = Random.Range(TopLevel.transform.position.y - ((TopLevel.transform.position.y - BottomLevel.transform.position.y) / 2), TopLevel.transform.position.y);
-            crate.transform.position = new Vector3(x, y, z);
+            float y = Random.Range(TopLevel.transform.position.y - ((TopLevel.transform.position.y - BottomLevel.transform.position.y) / 6), TopLevel.transform.position.y);
+            if (crate.activeInHierarchy)
+            {
+                ImpactEffectPool.Instance.Play(SpawnPrefab, crate.transform.position, Quaternion.Euler(90f, 0f, 0f));
+            }
+            StartCoroutine(ResetCrate2Routine(crate, new Vector3(x, y, z)));
         }
         
-        if(crate.name.Contains("OrbitDemon"))
+        
+        
+    }
+
+
+    private IEnumerator ResetCrate2Routine(GameObject crate, Vector3 newPos)
+    {
+        ImpactEffectPool.Instance.Play(SpawnPrefab, newPos, Quaternion.Euler(90f, 0f, 0f));
+        yield return resetWait;
+
+        pendingResets.Remove(crate); // in jedem Fall freigeben
+
+        if (crate == null) yield break; // Crate wurde in der Zwischenzeit zerstört
+
+        crate.transform.position = newPos;
+        if (crate.name.Contains("OrbitDemon"))
         {
             foreach (Transform Demon in crate.transform)
             {
@@ -110,7 +145,6 @@ public class RisingEnvironment : MonoBehaviour
             crate.GetComponent<DestructibleCrate>().ResetCrate(currentStage);
             crate.gameObject.active = true;
         }
-        
     }
 
     public void BoostPlayer(float playerBoostForce, Vector3 demonPos)

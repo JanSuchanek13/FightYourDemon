@@ -30,7 +30,8 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
     public Material m_damage0;
     public Material m_damage;
     public Material m_damage1;
-    public Material m_demon; //unnötig???
+    public Material m_demon;
+    public Material m_demonKill;
     public Material m_stage1;
     public Material m_stage2;
     public Material m_stage3;
@@ -92,6 +93,8 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
             {
                 renderer.material = m_damage1;
             }
+
+            currentlyAssignedMaterials = renderer.materials;
         }
 
         if (health <= 0)
@@ -111,6 +114,8 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         if (!isbreaking) //checkt ob die Funktion bereits aufgerufen wurde (Shootgun Problem > wenn zu viele Kugeln fliegen, dann ruft es die Break Funktion mehrfach auf)
         {
             isbreaking = true;
+            currentlyAssignedMaterials[2] = m_demonKill;
+            renderer.materials = currentlyAssignedMaterials;
             this.transform.GetChild(0).GetComponent<HitFlash>().Flash();
             ComboCounter.Instance.AddKill();
             Invoke("DisableCollider", 0.01f); //Collider aus damit man Gegner dahinter Treffen kann aber mit kleiner Verzögerung um alle Shotgun-Treffer Damage-Zahlen anzuzeigen
@@ -201,6 +206,9 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
 
         damageScale.ResetScale();
         collider.enabled = true;
+
+        currentlyAssignedMaterials[2] = m_demon; //Gesicht zurück setzen
+        currentlyAssignedMaterials[0] = m_damage0; //Schaden zurück setzen
 
         if (_demonClass == demonClass.Demon) //nur bei normalen demonen die Farbe ändern
         {

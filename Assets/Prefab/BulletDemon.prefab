@@ -437,10 +437,11 @@ MonoBehaviour:
   stage2money: 20
   stage3money: 50
   stage4money: 50
-  m_damage0: {fileID: 0}
+  m_damage0: {fileID: 2100000, guid: 93091538fd92f4b49877c3d8bec89526, type: 2}
   m_damage: {fileID: 2100000, guid: 159fbe281c0c6464f97a65c122b98deb, type: 2}
   m_damage1: {fileID: 2100000, guid: 3b7039c8e7222c14c96162fe48f33fe7, type: 2}
-  m_demon: {fileID: 2100000, guid: f177a1179a98a13498b5cf16e628cfe1, type: 2}
+  m_demon: {fileID: 2100000, guid: a28ea5b6c3a235647a7bc16524a6c844, type: 2}
+  m_demonKill: {fileID: 2100000, guid: 9729ef7b7e2167845b61e7b66891255a, type: 2}
   m_stage1: {fileID: 0}
   m_stage2: {fileID: 0}
   m_stage3: {fileID: 0}
@@ -450,7 +451,9 @@ MonoBehaviour:
   killPuffPrefab: {fileID: 8774075410129781828, guid: dbb88d1516ed67b47a9a590e171e8813, type: 3}
   killPerfectPuffPrefab: {fileID: 490985382271906017, guid: 16b5b4d6e032d72409802d41b6405455, type: 3}
   killLootPrefab: {fileID: 4500610251428939324, guid: 27309f04cf1e14a448ccc22164777f63, type: 3}
+  camShake: 0.2
   deathSound: {fileID: 8300000, guid: ceb5b4f324b9c304d86b4fc6bf6a2870, type: 3}
+  pitch: 0
 --- !u!114 &8106100491976917514
 MonoBehaviour:
   m_ObjectHideFlags: 0

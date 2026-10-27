@@ -27949,7 +27949,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e966579b37a54224fa69abe1c0515ee2, type: 3}
   - {fileID: 8300000, guid: 4fec1ca1cdfef034984e3637aa20d3d7, type: 3}
   - {fileID: 8300000, guid: 10116d97f77a4ca4e9d419d68c6c262b, type: 3}
-  volume: 0.8
+  volume: 0.2
   maxInterval: 0.5
   minInterval: 0.08
 --- !u!1 &1858466607

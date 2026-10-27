@@ -433,10 +433,11 @@ MonoBehaviour:
   stage2money: 20
   stage3money: 50
   stage4money: 50
-  m_damage0: {fileID: 0}
+  m_damage0: {fileID: 2100000, guid: 93091538fd92f4b49877c3d8bec89526, type: 2}
   m_damage: {fileID: 2100000, guid: 159fbe281c0c6464f97a65c122b98deb, type: 2}
   m_damage1: {fileID: 2100000, guid: 3b7039c8e7222c14c96162fe48f33fe7, type: 2}
-  m_demon: {fileID: 0}
+  m_demon: {fileID: 2100000, guid: a28ea5b6c3a235647a7bc16524a6c844, type: 2}
+  m_demonKill: {fileID: 2100000, guid: 9729ef7b7e2167845b61e7b66891255a, type: 2}
   m_stage1: {fileID: 2100000, guid: 68c6e33ecd914db448aec9f413f2e42d, type: 2}
   m_stage2: {fileID: 2100000, guid: 9c3aa1486d6f3ae4bb910f6b9eb5a0b0, type: 2}
   m_stage3: {fileID: 2100000, guid: ce5acebefe37b774f9fe038be54d09dc, type: 2}

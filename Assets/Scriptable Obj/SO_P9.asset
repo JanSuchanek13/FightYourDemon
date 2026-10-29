@@ -32,4 +32,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f0e282fb5f4d001479c7d68b9f502432, type: 3}
   - {fileID: 8300000, guid: c769449f44950f4498f6fa7caceac0e7, type: 3}
   - {fileID: 8300000, guid: 8649b1e84755551468a1776e0ea39ff8, type: 3}
+  lastShotSound: {fileID: 8300000, guid: 3ace678bef809084881e25bc3d5d5f3a, type: 3}
   shootVolume: 0.902

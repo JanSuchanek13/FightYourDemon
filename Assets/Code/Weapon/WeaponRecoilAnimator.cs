@@ -28,6 +28,7 @@ public class WeaponRecoilAnimator : MonoBehaviour
     [SerializeField] private float slideStiffness = 900f;
     [Tooltip("Dämpfung: ~2*sqrt(Stiffness) = kein Nachschwingen.")]
     [SerializeField] private float slideDamping = 55f;
+    private float slideRestTarget; // 0 = vorne (normal), slideMaxDistance = hinten (leer)
 
     [Header("Recoil Tilt")]
     [Tooltip("Kipp-Achse im lokalen Raum der Waffe. (-1,0,0) = Mündung nach oben.")]
@@ -77,6 +78,7 @@ public class WeaponRecoilAnimator : MonoBehaviour
     public void ResetImmediate()
     {
         slideOffset = slideVelocity = tiltAngle = tiltVelocity = 0f;
+        slideRestTarget = 0f;
         ApplyPose();
         enabled = false;
     }
@@ -86,8 +88,9 @@ public class WeaponRecoilAnimator : MonoBehaviour
         float dt = Time.deltaTime;
         if (dt > MaxDeltaTime) dt = MaxDeltaTime;
 
-        // --- Slide: Feder-Dämpfer (semi-implizites Euler) ---
-        slideVelocity += (-slideStiffness * slideOffset - slideDamping * slideVelocity) * dt;
+        // --- Slide: Feder-Daempfer gegen das aktuelle Ziel (vorne oder hinten) ---
+        float slideDisplacement = slideOffset - slideRestTarget;
+        slideVelocity += (-slideStiffness * slideDisplacement - slideDamping * slideVelocity) * dt;
         slideOffset += slideVelocity * dt;
 
         if (slideOffset < 0f)
@@ -111,13 +114,18 @@ public class WeaponRecoilAnimator : MonoBehaviour
             if (tiltVelocity > 0f) tiltVelocity = 0f;
         }
 
-        // --- Zur Ruhe gekommen? Auf Ruhepose setzen und Script abschalten ---
-        if (Mathf.Abs(slideOffset) < SettleEpsilon && Mathf.Abs(slideVelocity) < SettleEpsilon &&
+        // --- Zur Ruhe gekommen? ---
+        bool slideSettled = Mathf.Abs(slideOffset - slideRestTarget) < SettleEpsilon
+                            && Mathf.Abs(slideVelocity) < SettleEpsilon;
+
+        if (slideSettled &&
             Mathf.Abs(tiltAngle) < 0.01f && Mathf.Abs(tiltVelocity) < 0.01f)
         {
-            slideOffset = slideVelocity = tiltAngle = tiltVelocity = 0f;
+            slideOffset = slideRestTarget;   // exakt aufs Ziel setzen
+            slideVelocity = tiltAngle = tiltVelocity = 0f;
             ApplyPose();
-            enabled = false;
+            // nur abschalten, wenn der Slide VORNE ruht; hinten muss die Pose gehalten werden
+            if (slideRestTarget <= 0f) enabled = false;
             return;
         }
 
@@ -131,4 +139,19 @@ public class WeaponRecoilAnimator : MonoBehaviour
 
         weaponTransform.localRotation = weaponRestRotation * Quaternion.AngleAxis(tiltAngle, tiltDir);
     }
+
+    /// <summary>Slide hinten einrasten lassen (leeres Magazin).</summary>
+    public void LockSlideBack()
+    {
+        slideRestTarget = slideMaxDistance;
+        enabled = true; // Simulation laeuft, zieht den Slide nach hinten
+    }
+
+    /// <summary>Slide wieder freigeben (Nachladen).</summary>
+    public void ReleaseSlide()
+    {
+        slideRestTarget = 0f;
+        enabled = true; // federt wieder nach vorne
+    }
+
 }

@@ -15,8 +15,10 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private WeaponRecoil recoil;
     [SerializeField] private WeaponRecoilAnimator weaponAni;
     [SerializeField] private ShootZoom shootZoom;
+    [SerializeField] private ShellEjector shellEjector;
 
     private float nextFireTime;
+    private bool isReloading;
     public int currentAmmo;
     public int maxAmmo = 20;
     public int currentmaxAmmo;
@@ -88,6 +90,11 @@ public class WeaponController : MonoBehaviour
             ui_Ammo.text = currentAmmo.ToString();
             ui_MagSize.text = "/" + (weaponData.magazineSize * magazineMulti);
             ui_MaxAmmo.text = currentmaxAmmo.ToString();
+            if (isReloading)
+            {
+                isReloading = false;
+                weaponAni.ReleaseSlide();
+            }
         }
 
         if (weaponData.fireMode == FireMode.FullAuto || CanUseFullAuto())
@@ -114,7 +121,8 @@ public class WeaponController : MonoBehaviour
                 currentAmmo = currentmaxAmmo;
                 currentmaxAmmo = 0;
             }
-            
+
+            isReloading = true;
             ui_Ammo.text = "reloading";
             return;
         }
@@ -134,9 +142,18 @@ public class WeaponController : MonoBehaviour
 
     void Shoot()
     {
+        //Magazin leer?
+        if (currentAmmo <= 0)
+        {
+            AudioManager.Instance.Play2D(weaponData.lastShotSound, weaponData.shootVolume);
+            weaponAni.LockSlideBack();
+        }
+        else
+            PlayRandomSound();
+
         shootZoom.AddZoom();
         muzzlefire.Play();
-        PlayRandomSound();
+        shellEjector.Eject();
         recoil.ApplyRecoil(weaponData.recoilForce, weaponData.recoilForce/4);
         weaponAni.Fire();
 

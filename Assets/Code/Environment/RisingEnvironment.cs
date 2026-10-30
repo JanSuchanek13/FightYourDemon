@@ -244,6 +244,21 @@ public class RisingEnvironment : MonoBehaviour
         UpdateDemonList();
     }
 
+    public void UpdateBombDemon(int add) //noch falsch weil Orbit Demon Ordner verknüpft
+    {
+        for (int i = 0; i < add; i++)
+        {
+            transform.GetChild(6).transform.GetChild(0).transform.gameObject.active = true;
+            transform.GetChild(6).transform.GetChild(0).transform.parent = transform.GetChild(0).transform;
+        }
+        OrbitDemonCount += add;
+        UpdateDemonList();
+    }
+
+    public void SpawnMiniDemon(Vector3 spawnPos) //noch falsch weil Orbit Demon Ordner verknüpft
+    {
+    }
+
     public void ShowBossDemon(int numb)
     {
         if (numb >= bossCount)

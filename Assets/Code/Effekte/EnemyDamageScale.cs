@@ -11,9 +11,17 @@ public class EnemyDamageScale : MonoBehaviour
     [Tooltip("Kleiner = schnelleres Aufpusten.")]
     [SerializeField] private float smoothTime = 0.12f;
 
+    [Header("Erstes Child")]
+    [Tooltip("Das erste Child zusätzlich separat skalieren.")]
+    [SerializeField] private bool scaleFirstChild = true;
+    [Tooltip("Wie stark das Child im Verhältnis zum Hauptobjekt extra waechst (1 = genauso, 2 = doppelt so stark).")]
+    [SerializeField] private float childScaleFactor = 1f;
+
     private const float SettleEpsilon = 0.0005f;
 
     private Transform cachedTransform;
+    private Transform firstChild;
+    private float childNormalScale;
     private float currentScale;
     private float targetScale;
     private float velocity;
@@ -23,21 +31,33 @@ public class EnemyDamageScale : MonoBehaviour
         cachedTransform = transform;
         normalScale = cachedTransform.localScale.x;
         currentScale = targetScale = normalScale;
-        enabled = false; // Update läuft nur während der Animation
+
+        // erstes Child merken (falls vorhanden)
+        if (scaleFirstChild && cachedTransform.childCount > 0)
+        {
+            firstChild = cachedTransform.GetChild(0);
+            childNormalScale = firstChild.localScale.x;
+        }
+
+        enabled = false;
     }
 
-    // Aufrufen, wenn sich die Leben ändern (z.B. in deiner TakeDamage-Methode)
     public void OnHealthChanged(float health, float maxHealth)
     {
         float damage01 = 1f - Mathf.Clamp01(health / maxHealth);
         targetScale = normalScale + maxExtraScale * Mathf.Pow(damage01, curvePower);
         enabled = true;
     }
+
     public void ResetScale()
     {
         currentScale = targetScale = normalScale;
         velocity = 0f;
         cachedTransform.localScale = new Vector3(normalScale, normalScale, normalScale);
+
+        if (firstChild != null)
+            firstChild.localScale = new Vector3(childNormalScale, childNormalScale, childNormalScale);
+
         enabled = false;
     }
 
@@ -53,5 +73,13 @@ public class EnemyDamageScale : MonoBehaviour
         }
 
         cachedTransform.localScale = new Vector3(currentScale, currentScale, currentScale);
+
+        if (firstChild != null)
+        {
+            // zusaetzlicher Zuwachs des Childs, skaliert mit childScaleFactor
+            float extra = (currentScale - normalScale) * childScaleFactor;
+            float childScale = childNormalScale + extra;
+            firstChild.localScale = new Vector3(childScale, childScale, childScale);
+        }
     }
 }

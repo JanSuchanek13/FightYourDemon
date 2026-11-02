@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RisingEnvironment : MonoBehaviour
@@ -92,10 +93,23 @@ public class RisingEnvironment : MonoBehaviour
         {
             ResetCrate(item, true);
         }
+        UpdateDemonList();
     }
 
     public void ResetCrate(GameObject crate, bool startnew)
     {
+        //Debug.Log("Reset" + crate.GetComponent<DestructibleCrate>()._demonClass);
+        if (crate.GetComponent<DestructibleCrate>() != null && crate.GetComponent<DestructibleCrate>()._demonClass == DestructibleCrate.demonClass.MiniDemon)
+        {
+            if (!startnew)
+            {
+                ImpactEffectPool.Instance.Play(SpawnPrefab, crate.transform.position, Quaternion.Euler(90f, 0f, 0f));
+            }
+            DespawnMiniDemon(crate.transform);
+            crate.GetComponent<DestructibleCrate>().ResetCrate(currentStage);
+            return;
+        }
+
         float currentStageFloat = float.Parse(heightStage.CurrentStage.stageName, System.Globalization.NumberStyles.Float); //stage Namen als float umwandeln
         currentStage = (int)currentStageFloat;                                                                              //float als int umwandeln
         float x = Random.Range(BottomLevel.transform.position.x, TopLevel.transform.position.x);
@@ -255,8 +269,18 @@ public class RisingEnvironment : MonoBehaviour
         UpdateDemonList();
     }
 
-    public void SpawnMiniDemon(Vector3 spawnPos) //noch falsch weil Orbit Demon Ordner verknüpft
+    public void SpawnMiniDemon(Vector3 spawnPos) 
     {
+        transform.GetChild(7).transform.GetChild(0).transform.gameObject.active = true;
+        transform.GetChild(7).transform.GetChild(0).transform.position = spawnPos;
+        transform.GetChild(7).transform.GetChild(0).transform.parent = transform.GetChild(0).transform;
+        UpdateDemonList();
+    }
+
+    public void DespawnMiniDemon(Transform demon) 
+    {
+        demon.gameObject.active = false;
+        demon.parent = transform.GetChild(7).transform;
     }
 
     public void ShowBossDemon(int numb)

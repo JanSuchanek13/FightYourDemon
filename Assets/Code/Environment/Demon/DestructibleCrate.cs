@@ -4,7 +4,7 @@ using System.Collections;
 
 public class DestructibleCrate : MonoBehaviour, IDamageable
 {
-    public enum demonClass {Demon, MoneyDemon, ArcaneDemon, BulletDemon, OrbitDemon, BombDemon}
+    public enum demonClass {Demon, MoneyDemon, ArcaneDemon, BulletDemon, OrbitDemon, BombDemon, SplitDemon, MiniDemon}
     public demonClass _demonClass;
 
     public float health;
@@ -160,6 +160,10 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         {
             GetComponent<ExplosionDamage>().Explode(transform.position);  
         }
+        if (_demonClass == demonClass.SplitDemon)
+        {
+            GetComponent<SplitDemonSpawn>().SpawnSplitDemons(transform.position);
+        }
         ImpactEffectPool.Instance.Play(killPuffPrefab, transform.position, transform.rotation);
         CameraShake.Instance.AddShake(camShake);
         AudioManager.Instance.Play3D(deathSound, transform.position, 1f, pitch);
@@ -182,6 +186,10 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         if (_demonClass == demonClass.BombDemon)
         {
             GetComponent<ExplosionDamage>().Explode(transform.position);
+        }
+        if (_demonClass == demonClass.SplitDemon)
+        {
+            GetComponent<SplitDemonSpawn>().SpawnSplitDemons(transform.position);
         }
         ImpactEffectPool.Instance.Play(killPerfectPuffPrefab, transform.position, transform.rotation);
         CameraShake.Instance.AddShake(camShake);

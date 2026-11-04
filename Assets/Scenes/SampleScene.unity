@@ -9079,7 +9079,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &346724590
 Transform:
   m_ObjectHideFlags: 0
@@ -25257,6 +25257,16 @@ MonoBehaviour:
   resetDelay: 1
   hitGroundSound: {fileID: 8300000, guid: 00dc4b75d81a5e048aced8d880acd011, type: 3}
   bossCount: 0
+  playerGround: {fileID: 1879326611}
+  startNewSeconds: 10
+  demonTypes:
+  - label: Demon
+    demonClass: 0
+    sourceFolder: {fileID: 508959717}
+    special: 0
+    spawnChance: 0
+  spawnRate: 0.5
+  maxSpawnsPerFrame: 3
 --- !u!1 &1539288230
 GameObject:
   m_ObjectHideFlags: 0

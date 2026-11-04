@@ -41,6 +41,41 @@ public class RisingEnvironment : MonoBehaviour
     [Header("Boss")]
     public int bossCount;
 
+    [Header("Boden-Status")]
+    [SerializeField] private FallDeathReload playerGround;   // vom Player
+    private bool _wasGrounded;
+
+    [Header("StartNew")]
+    [Tooltip("Wie viele Sekunden lang nach dem Aufprall gespawnt wird")]
+    public float startNewSeconds = 10f;
+
+    private float _spawnBudget;   // verbleibendes Kontingent; <0 = unbegrenzt
+
+    [Header("Spawning")]
+    public List<DemonType> demonTypes = new List<DemonType>();
+    [Tooltip("Daemonen pro Sekunde")]
+    public float spawnRate = 2f;
+    [Tooltip("Max. Spawns pro Frame (gegen Nachhol-Bursts bei Framedrops)")]
+    public int maxSpawnsPerFrame = 3;
+
+    private float _spawnTimer;
+    private DemonType _normalType;
+    private readonly Dictionary<DestructibleCrate.demonClass, DemonType> _byClass = new();
+    private readonly List<GameObject> _active = new();
+    private readonly Dictionary<GameObject, DemonType> _activeType = new();
+
+    [System.Serializable]
+    public class DemonType
+    {
+        public string label;                              // nur zur Uebersicht
+        public DestructibleCrate.demonClass demonClass;
+        public Transform sourceFolder;                    // Ordner mit allen Objekten dieses Typs
+        [Tooltip("true = spawnt per Wahrscheinlichkeit; false = der Normal-Typ (ueber die Rate)")]
+        public bool special;
+        [Range(0f, 1f)] public float spawnChance;         // nur fuer special
+        [HideInInspector] public Queue<GameObject> pool;
+    }
+
 
     private void Awake()
     {
@@ -59,22 +94,162 @@ public class RisingEnvironment : MonoBehaviour
         UpdateDemonList();
 
         resetWait = new WaitForSeconds(resetDelay);
+
+        foreach (var type in demonTypes) //Spawn Queues
+        {
+            type.pool = new Queue<GameObject>();
+            if (type.sourceFolder != null)
+            {
+                foreach (Transform child in type.sourceFolder)
+                {
+                    child.gameObject.SetActive(false);
+                    type.pool.Enqueue(child.gameObject);
+                }
+            }
+            _byClass[type.demonClass] = type;
+            if (!type.special) _normalType = type;   // der eine Normal-Typ
+        }
+
+        if (playerGround == null && player != null)
+            playerGround = player.GetComponent<FallDeathReload>();
+        _wasGrounded = false;
+
+        _spawnBudget = -1f;   // Standard: laeuft dauerhaft
     }
 
     // Update is called once per frame
     void Update()
     {
-        float limitY = BottomLevel.transform.position.y;
+        // --- Boden-Zustand auswerten ---
+        bool grounded = playerGround != null && playerGround.isGrounded;
 
-        for (int i = 0; i < crates.Count; i++)
+        if (grounded && !_wasGrounded)
         {
-            GameObject item = crates[i];
-
-            if (item.transform.position.y >= limitY) continue;
-            if (!pendingResets.Add(item)) continue; // läuft schon -> überspringen
-
-            ResetCrate(item, false);
+            // gerade aufgekommen -> StartNew-Verhalten (Sound + Kontingent)
+            OnLanded();
         }
+        else if (!grounded && _wasGrounded)
+        {
+            // gerade abgehoben -> Deckel weg, normale Rate
+            _spawnBudget = -1f;   // unbegrenzt
+        }
+        _wasGrounded = grounded;
+
+        // 1) zu tiefe Daemonen zurueck in ihre Queue (kein sofortiger Respawn mehr)
+        float limitY = BottomLevel.transform.position.y;
+        for (int i = _active.Count - 1; i >= 0; i--)
+        {
+            GameObject d = _active[i];
+            if (d == null) { _active.RemoveAt(i); continue; }
+            if (d.transform.position.y < limitY)
+                ReturnDemon(d, i);
+        }
+
+        // 2) Spawn-Takt nach fester Rate
+        if (spawnRate <= 0f) return;
+        float interval = 1f / spawnRate;
+        _spawnTimer += Time.deltaTime;
+
+        int spawnedThisFrame = 0;
+        while (_spawnTimer >= interval && spawnedThisFrame < maxSpawnsPerFrame)
+        {
+            _spawnTimer -= interval;
+            if (!SpawnOne()) break;   // nichts gespawnt (Kontingent leer o. Vorrat leer)
+            spawnedThisFrame++;
+        }
+    }
+
+    /*void SpawnOne()
+    {
+        if (_spawnBudget == 0f) return;   // Kontingent aufgebraucht -> nichts mehr
+
+        // Spezialtypen der Reihe nach durchgehen; erster Treffer gewinnt
+        foreach (var type in demonTypes)
+        {
+            if (!type.special || type.pool.Count == 0) continue;
+            if (Random.value < type.spawnChance)
+            {
+                Activate(type);
+                return;   // statt eines normalen wird dieser Spezialtyp gespawnt
+            }
+        }
+        // kein Spezial getroffen -> Normal
+        if (_normalType != null && _normalType.pool.Count > 0)
+            Activate(_normalType);
+
+        if (_spawnBudget > 0f) _spawnBudget -= 1f;
+    }*/
+
+    bool SpawnOne()
+    {
+        if (_spawnBudget == 0f) return false;
+
+        foreach (var type in demonTypes)
+        {
+            if (!type.special || type.pool.Count == 0) continue;
+            if (Random.value < type.spawnChance)
+            {
+                Activate(type);
+                if (_spawnBudget > 0f) _spawnBudget -= 1f;
+                return true;
+            }
+        }
+        if (_normalType != null && _normalType.pool.Count > 0)
+        {
+            Activate(_normalType);
+            if (_spawnBudget > 0f) _spawnBudget -= 1f;
+            return true;
+        }
+        return false;
+    }
+
+    void Activate(DemonType type)
+    {
+        GameObject demon = type.pool.Dequeue();
+
+        // Zielposition oben (wie in deinem bisherigen "nicht startnew"-Zweig)
+        float x = Random.Range(BottomLevel.transform.position.x, TopLevel.transform.position.x);
+        float z = Random.Range(TopLevel.transform.position.z, BottomLevel.transform.position.z);
+        float y = Random.Range(
+            TopLevel.transform.position.y - ((TopLevel.transform.position.y - BottomLevel.transform.position.y) / 6f),
+            TopLevel.transform.position.y);
+        Vector3 pos = new Vector3(x, y, z);
+        demon.transform.position = pos;
+
+        ImpactEffectPool.Instance.Play(SpawnPrefab, pos, Quaternion.Euler(90f, 0f, 0f));
+
+        // Stage bestimmen (wie bisher)
+        float stageF = float.Parse(heightStage.CurrentStage.stageName, System.Globalization.NumberStyles.Float);
+        currentStage = (int)stageF;
+
+        // Initialisieren + aktivieren
+        if (type.demonClass == DestructibleCrate.demonClass.OrbitDemon) //alle Objecte in Orbit Demon
+        {
+            foreach (Transform sub in demon.transform)
+                sub.gameObject.SetActive(true);
+            demon.SetActive(true);
+            foreach (Transform sub in demon.transform)
+                sub.GetComponent<DestructibleCrate>().ResetCrate(currentStage);
+        }
+        else
+        {
+            demon.SetActive(true);
+            demon.GetComponent<DestructibleCrate>().ResetCrate(currentStage);
+        }
+
+        _active.Add(demon);
+        _activeType[demon] = type;
+    }
+
+    void ReturnDemon(GameObject demon, int activeIndex)
+    {
+        demon.SetActive(false);
+        if (_activeType.TryGetValue(demon, out var type))
+        {
+            type.pool.Enqueue(demon);
+            _activeType.Remove(demon);
+        }
+        _active.RemoveAt(activeIndex);
     }
 
     public void UpdateDemonList() //automatically get all Demons
@@ -89,11 +264,15 @@ public class RisingEnvironment : MonoBehaviour
     public void StartNew()
     {
         AudioManager.Instance.Play2D(hitGroundSound, 1f);
-        foreach (var item in crates)
-        {
-            ResetCrate(item, true);
-        }
-        UpdateDemonList();
+        _spawnBudget = spawnRate * startNewSeconds;   // so viele wie in 10 s
+        _spawnTimer = 0f;
+    }
+
+    private void OnLanded()
+    {
+        AudioManager.Instance.Play2D(hitGroundSound, 1f);
+        _spawnBudget = spawnRate * startNewSeconds;   // Deckel: so viele wie in 10 s
+        _spawnTimer = 0f;
     }
 
     public void ResetCrate(GameObject crate, bool startnew)

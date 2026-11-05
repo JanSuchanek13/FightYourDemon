@@ -120,6 +120,7 @@ public class RisingEnvironment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Normal-Pool: " + _normalType.pool.Count + " | aktiv: " + _active.Count);
         // --- Boden-Zustand auswerten ---
         bool grounded = playerGround != null && playerGround.isGrounded;
 
@@ -157,6 +158,13 @@ public class RisingEnvironment : MonoBehaviour
             if (!SpawnOne()) break;   // nichts gespawnt (Kontingent leer o. Vorrat leer)
             spawnedThisFrame++;
         }
+    }
+
+    public void NotifyDemonKilled(GameObject demon)
+    {
+        int idx = _active.IndexOf(demon);
+        if (idx >= 0)
+            ReturnDemon(demon, idx);   // sofort zurueck in die Queue
     }
 
     /*void SpawnOne()
@@ -249,7 +257,22 @@ public class RisingEnvironment : MonoBehaviour
             type.pool.Enqueue(demon);
             _activeType.Remove(demon);
         }
+        else
+        {
+            Debug.LogWarning("Daemon ohne _activeType-Eintrag zurueckgenommen: " + demon.name);
+        }
         _active.RemoveAt(activeIndex);
+    }
+
+    void ReturnAllDemons()
+    {
+        // von hinten nach vorne, weil ReturnDemon aus _active entfernt
+        for (int i = _active.Count - 1; i >= 0; i--)
+        {
+            GameObject d = _active[i];
+            if (d == null) { _active.RemoveAt(i); continue; }
+            ReturnDemon(d, i);
+        }
     }
 
     public void UpdateDemonList() //automatically get all Demons
@@ -271,6 +294,7 @@ public class RisingEnvironment : MonoBehaviour
     private void OnLanded()
     {
         AudioManager.Instance.Play2D(hitGroundSound, 1f);
+        ReturnAllDemons();                            // alle aktiven zurueck in die Queues
         _spawnBudget = spawnRate * startNewSeconds;   // Deckel: so viele wie in 10 s
         _spawnTimer = 0f;
     }

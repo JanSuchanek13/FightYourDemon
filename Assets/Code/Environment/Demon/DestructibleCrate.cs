@@ -171,7 +171,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         MoneyManager.Instance.AddMoney(moneyValue);
         RisingEnvironment.Instance.BoostPlayer(playerBoostForce, transform.position);
         //Destroy(gameObject);
-        this.gameObject.active = false;
+        RisingEnvironment.Instance.NotifyDemonKilled(this.gameObject);
         renderer.material = null;
         health = maxhealth;
         isbreaking = false;
@@ -198,7 +198,7 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         MoneyManager.Instance.AddMoney(moneyValue);
         RisingEnvironment.Instance.BoostPlayer(playerBoostForce, transform.position);
         //Destroy(gameObject);
-        this.gameObject.active = false;
+        RisingEnvironment.Instance.NotifyDemonKilled(this.gameObject);
         renderer.material = null;
         health = maxhealth;
         isbreaking = false;

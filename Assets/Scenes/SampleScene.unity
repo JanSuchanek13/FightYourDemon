@@ -25264,7 +25264,7 @@ MonoBehaviour:
     demonClass: 0
     sourceFolder: {fileID: 508959717}
     special: 0
-    spawnChance: 0
+    spawnChance: 1
   spawnRate: 0.5
   maxSpawnsPerFrame: 3
 --- !u!1 &1539288230

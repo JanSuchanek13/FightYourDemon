@@ -31,6 +31,8 @@ public class PlayerSkills
         MoneyDemon_2,
         DistanceBoost_1,
         FlyingBoost_1,
+        Demon_3,
+        SplitDemon_1
     }
 
     private List<SkillType> unlockedSkillTypeList;

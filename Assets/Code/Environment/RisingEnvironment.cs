@@ -120,7 +120,6 @@ public class RisingEnvironment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Normal-Pool: " + _normalType.pool.Count + " | aktiv: " + _active.Count);
         // --- Boden-Zustand auswerten ---
         bool grounded = playerGround != null && playerGround.isGrounded;
 
@@ -406,6 +405,17 @@ public class RisingEnvironment : MonoBehaviour
         MoneyManager.Instance.SpendHorns(ConfigArtefact.Instance.stage1Price);
     }
 
+    public void AddSpawnRate(float add)
+    {
+        spawnRate = Mathf.Max(0f, spawnRate + add);
+    }
+
+    public void AddSpawnChance(DestructibleCrate.demonClass demonClass, float add)
+    {
+        if (_byClass.TryGetValue(demonClass, out var type))
+            type.spawnChance = Mathf.Clamp01(type.spawnChance + add);
+    }
+
     public void UpdateDemon(int add)
     {
         for (int i = 0; i < add; i++)
@@ -472,12 +482,23 @@ public class RisingEnvironment : MonoBehaviour
         UpdateDemonList();
     }
 
-    public void SpawnMiniDemon(Vector3 spawnPos) 
+    public void SpawnMiniDemon(Vector3 spawnPos)
     {
-        transform.GetChild(7).transform.GetChild(0).transform.gameObject.active = true;
-        transform.GetChild(7).transform.GetChild(0).transform.position = spawnPos;
-        transform.GetChild(7).transform.GetChild(0).transform.parent = transform.GetChild(0).transform;
-        UpdateDemonList();
+        if (!_byClass.TryGetValue(DestructibleCrate.demonClass.MiniDemon, out var type))
+            return;
+        if (type.pool.Count == 0) return;   // kein Vorrat -> nichts spawnen
+
+        GameObject demon = type.pool.Dequeue();
+        demon.transform.position = spawnPos;
+
+        float stageF = float.Parse(heightStage.CurrentStage.stageName, System.Globalization.NumberStyles.Float);
+        currentStage = (int)stageF;
+
+        demon.SetActive(true);
+        demon.GetComponent<DestructibleCrate>().ResetCrate(currentStage);
+
+        _active.Add(demon);
+        _activeType[demon] = type;
     }
 
     public void DespawnMiniDemon(Transform demon) 

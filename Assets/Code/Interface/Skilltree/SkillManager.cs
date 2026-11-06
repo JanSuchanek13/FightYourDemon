@@ -45,25 +45,25 @@ public class SkillManager : MonoBehaviour
                 WeaponController.Instance.UpdateReload(ConfigSkills.Instance.Reload_1_Value);
                 break;
             case PlayerSkills.SkillType.Demon_1:
-                RisingEnvironment.Instance.UpdateDemon(ConfigSkills.Instance.Demon_1_Value);
+                RisingEnvironment.Instance.AddSpawnRate(ConfigSkills.Instance.Demon_1_Value);
                 break;
             case PlayerSkills.SkillType.Demon_2:
-                RisingEnvironment.Instance.UpdateDemon(ConfigSkills.Instance.Demon_2_Value);
+                RisingEnvironment.Instance.AddSpawnRate(ConfigSkills.Instance.Demon_2_Value);
                 break;
             case PlayerSkills.SkillType.BulletDemon_1:
-                RisingEnvironment.Instance.UpdateBulletDemon(ConfigSkills.Instance.BulletDemon_1_Value);
+                RisingEnvironment.Instance.AddSpawnChance(DestructibleCrate.demonClass.BulletDemon, ConfigSkills.Instance.BulletDemon_1_Value);
                 break;
             case PlayerSkills.SkillType.BulletDemon_2:
-                RisingEnvironment.Instance.UpdateBulletDemon(ConfigSkills.Instance.BulletDemon_2_Value);
+                RisingEnvironment.Instance.AddSpawnChance(DestructibleCrate.demonClass.BulletDemon, ConfigSkills.Instance.BulletDemon_2_Value);
                 break;
             case PlayerSkills.SkillType.OrbitDemon_1:
-                RisingEnvironment.Instance.UpdateOrbitDemon(ConfigSkills.Instance.OrbitDemon_1_Value);
+                RisingEnvironment.Instance.AddSpawnChance(DestructibleCrate.demonClass.OrbitDemon, ConfigSkills.Instance.OrbitDemon_1_Value);
                 break;
             case PlayerSkills.SkillType.MoneyDemon_1:
-                RisingEnvironment.Instance.UpdateMoneyDemon(ConfigSkills.Instance.MoneyDemon_1_Value);
+                RisingEnvironment.Instance.AddSpawnChance(DestructibleCrate.demonClass.MoneyDemon, ConfigSkills.Instance.MoneyDemon_1_Value);
                 break;
             case PlayerSkills.SkillType.MoneyDemon_2:
-                RisingEnvironment.Instance.UpdateMoneyDemon(ConfigSkills.Instance.MoneyDemon_2_Value);
+                RisingEnvironment.Instance.AddSpawnChance(DestructibleCrate.demonClass.MoneyDemon, ConfigSkills.Instance.MoneyDemon_2_Value);
                 break;
             case PlayerSkills.SkillType.DistanceBoost_1:
                 RisingEnvironment.Instance.UpdateDistanceBoost(ConfigSkills.Instance.DistanceBoost_1_Value);

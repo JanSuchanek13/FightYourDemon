@@ -164,6 +164,14 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         {
             GetComponent<SplitDemonSpawn>().SpawnSplitDemons(transform.position);
         }
+        if(_demonClass == demonClass.OrbitDemon)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            RisingEnvironment.Instance.NotifyDemonKilled(this.gameObject);
+        }
         ImpactEffectPool.Instance.Play(killPuffPrefab, transform.position, transform.rotation);
         CameraShake.Instance.AddShake(camShake);
         AudioManager.Instance.Play3D(deathSound, transform.position, 1f, pitch);
@@ -171,7 +179,6 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         MoneyManager.Instance.AddMoney(moneyValue);
         RisingEnvironment.Instance.BoostPlayer(playerBoostForce, transform.position);
         //Destroy(gameObject);
-        RisingEnvironment.Instance.NotifyDemonKilled(this.gameObject);
         renderer.material = null;
         health = maxhealth;
         isbreaking = false;
@@ -191,6 +198,14 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         {
             GetComponent<SplitDemonSpawn>().SpawnSplitDemons(transform.position);
         }
+        if (_demonClass == demonClass.OrbitDemon)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            RisingEnvironment.Instance.NotifyDemonKilled(this.gameObject);
+        }
         ImpactEffectPool.Instance.Play(killPerfectPuffPrefab, transform.position, transform.rotation);
         CameraShake.Instance.AddShake(camShake);
         AudioManager.Instance.Play3D(deathSound, transform.position, 1f, pitch);
@@ -198,7 +213,6 @@ public class DestructibleCrate : MonoBehaviour, IDamageable
         MoneyManager.Instance.AddMoney(moneyValue);
         RisingEnvironment.Instance.BoostPlayer(playerBoostForce, transform.position);
         //Destroy(gameObject);
-        RisingEnvironment.Instance.NotifyDemonKilled(this.gameObject);
         renderer.material = null;
         health = maxhealth;
         isbreaking = false;

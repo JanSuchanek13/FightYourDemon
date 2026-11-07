@@ -1,8 +1,29 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using CodeMonkey.Utils;
 
 public class MenuController : MonoBehaviour
 {
+    [SerializeField] private Transform buttons;
+
+    private void Awake()
+    {
+        buttons.Find("Start").GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            LoadScene(1);
+        };
+
+        buttons.Find("Settings").GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            LoadScene(1);
+        };
+
+        buttons.Find("Quit").GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            QuitGame();
+        };
+    }
+
     // Szene per Name laden (Button: diese Methode + Szenenname eintragen)
     public void LoadScene(string sceneName)
     {

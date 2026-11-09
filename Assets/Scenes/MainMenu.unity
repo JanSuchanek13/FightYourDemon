@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.042452812, b: 0.042452812, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -429,6 +429,7 @@ MonoBehaviour:
   spreadSpeed: 10
   parallaxAmount: 15
   parallaxSpeed: 6
+  hoverSprite: {fileID: 21300000, guid: b17f51e0d9984fc47a47586e7d7171fe, type: 3}
 --- !u!1 &361548995
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,8 +465,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.055}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65.471985, y: -10.118103}
-  m_SizeDelta: {x: 511.298, y: 109.1498}
+  m_AnchoredPosition: {x: -70.7611, y: 9.2956}
+  m_SizeDelta: {x: 634.3187, y: 129.2119}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &361548997
 MonoBehaviour:
@@ -480,7 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.042452812, b: 0.042452812, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -631,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.042452812, b: 0.042452812, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1275,6 +1276,7 @@ MonoBehaviour:
   spreadSpeed: 10
   parallaxAmount: 15
   parallaxSpeed: 6
+  hoverSprite: {fileID: 21300000, guid: b17f51e0d9984fc47a47586e7d7171fe, type: 3}
 --- !u!114 &1256223380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1432,8 +1434,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: -3}
-  m_SizeDelta: {x: 390.7258, y: 172.2234}
+  m_AnchoredPosition: {x: -3.1486, y: -2.9992}
+  m_SizeDelta: {x: 353.9376, y: 172.2234}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1297563659
 MonoBehaviour:
@@ -1482,7 +1484,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.95
+  m_fontSize: 52.5
   m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1590,11 +1592,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLayerEffect
   layers:
   - element: {fileID: 2128950825}
-    spreadOffset: {x: 20, y: -20}
+    spreadOffset: {x: -14.3, y: -20}
     parallaxFactor: 1
     basePos: {x: 0, y: 0}
   - element: {fileID: 1020258098}
-    spreadOffset: {x: -10, y: 10}
+    spreadOffset: {x: 30, y: -5}
     parallaxFactor: 0.8
     basePos: {x: 0, y: 0}
   - element: {fileID: 1970431989}
@@ -1608,6 +1610,7 @@ MonoBehaviour:
   spreadSpeed: 10
   parallaxAmount: 15
   parallaxSpeed: 6
+  hoverSprite: {fileID: 21300000, guid: b17f51e0d9984fc47a47586e7d7171fe, type: 3}
 --- !u!114 &1391238401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1813,8 +1816,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6, y: -7}
-  m_SizeDelta: {x: 312.3783, y: 109.15}
+  m_AnchoredPosition: {x: -6.6651, y: -3.5718}
+  m_SizeDelta: {x: 336.956, y: 97.885}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1754316669
 MonoBehaviour:
@@ -1863,7 +1866,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.3
+  m_fontSize: 44.55
   m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 1

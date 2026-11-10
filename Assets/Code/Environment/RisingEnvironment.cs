@@ -45,6 +45,10 @@ public class RisingEnvironment : MonoBehaviour
     [SerializeField] private FallDeathReload playerGround;   // vom Player
     private bool _wasGrounded;
 
+    [Header("Fester 2. Spawn (am Boden)")]
+    [SerializeField] private Transform fixedSecondSpawnPoint;   // feste Position
+    private int _groundSpawnCount;   // zaehlt Spawns seit dem Landen
+
     [Header("StartNew")]
     [Tooltip("Wie viele Sekunden lang nach dem Aufprall gespawnt wird")]
     public float startNewSeconds = 10f;
@@ -191,6 +195,20 @@ public class RisingEnvironment : MonoBehaviour
     {
         if (_spawnBudget == 0f) return false;
 
+        // nur am Boden zaehlen; der 2. Spawn bekommt die feste Position
+        bool grounded = playerGround != null && playerGround.isGrounded;
+
+        // 2. Spawn am Boden: immer ein normaler Daemon an der festen Position
+        if (grounded && _groundSpawnCount == 1 && fixedSecondSpawnPoint != null
+            && _normalType != null && _normalType.pool.Count > 0)
+        {
+            Activate(_normalType, fixedSecondSpawnPoint.position);
+            if (_spawnBudget > 0f) _spawnBudget -= 1f;
+            _groundSpawnCount++;
+            return true;
+        }
+
+        // normaler Ablauf: Spezialtypen durchgehen, erster Treffer gewinnt
         foreach (var type in demonTypes)
         {
             if (!type.special || type.pool.Count == 0) continue;
@@ -198,6 +216,7 @@ public class RisingEnvironment : MonoBehaviour
             {
                 Activate(type);
                 if (_spawnBudget > 0f) _spawnBudget -= 1f;
+                if (grounded) _groundSpawnCount++;
                 return true;
             }
         }
@@ -205,22 +224,31 @@ public class RisingEnvironment : MonoBehaviour
         {
             Activate(_normalType);
             if (_spawnBudget > 0f) _spawnBudget -= 1f;
+            if (grounded) _groundSpawnCount++;
             return true;
         }
         return false;
     }
 
-    void Activate(DemonType type)
+    void Activate(DemonType type, Vector3? fixedPos = null)
     {
         GameObject demon = type.pool.Dequeue();
 
-        // Zielposition oben (wie in deinem bisherigen "nicht startnew"-Zweig)
-        float x = Random.Range(BottomLevel.transform.position.x, TopLevel.transform.position.x);
-        float z = Random.Range(TopLevel.transform.position.z, BottomLevel.transform.position.z);
-        float y = Random.Range(
+        Vector3 pos;
+        if (fixedPos.HasValue) //Soll Demon an Start Position spawnen oder random
+        {
+            pos = fixedPos.Value;
+        }
+        else
+        {
+            // Zielposition oben (wie in deinem bisherigen "nicht startnew"-Zweig)
+            float x = Random.Range(BottomLevel.transform.position.x, TopLevel.transform.position.x);
+            float z = Random.Range(TopLevel.transform.position.z, BottomLevel.transform.position.z);
+            float y = Random.Range(
             TopLevel.transform.position.y - ((TopLevel.transform.position.y - BottomLevel.transform.position.y) / 6f),
             TopLevel.transform.position.y);
-        Vector3 pos = new Vector3(x, y, z);
+            pos = new Vector3(x, y, z);
+        }
         demon.transform.position = pos;
 
         ImpactEffectPool.Instance.Play(SpawnPrefab, pos, Quaternion.Euler(90f, 0f, 0f));
@@ -296,6 +324,7 @@ public class RisingEnvironment : MonoBehaviour
         ReturnAllDemons();                            // alle aktiven zurueck in die Queues
         _spawnBudget = spawnRate * startNewSeconds;   // Deckel: so viele wie in 10 s
         _spawnTimer = 0f;
+        _groundSpawnCount = 0;   // Zaehler fuer die Bodenphase zuruecksetzen
     }
 
     public void ResetCrate(GameObject crate, bool startnew)

@@ -16,6 +16,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private WeaponRecoilAnimator weaponAni;
     [SerializeField] private ShootZoom shootZoom;
     [SerializeField] private ShellEjector shellEjector;
+    [SerializeField] private CrosshairHitmarker crosshairHitmarker;
 
     private float nextFireTime;
     private bool isReloading;
@@ -209,6 +210,7 @@ public class WeaponController : MonoBehaviour
                 }
                 else                                                                //Gegner Treffer
                 {
+                    crosshairHitmarker.ShowHit();   // Hit-Marker
                     //Debug.Log("Hit");
                     damageable.TakeDamage(dmg);
                     // Schadenszahl genau am Einschlagpunkt

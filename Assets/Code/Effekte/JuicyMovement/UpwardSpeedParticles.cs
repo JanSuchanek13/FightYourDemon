@@ -3,12 +3,19 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UpwardSpeedParticles : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Rigidbody playerBody;
     [SerializeField] private ParticleSystem effect;
+    [SerializeField] private WingFlap wings;
 
     [Header("Geschwindigkeit (m/s nach oben)")]
     [SerializeField] private float minSpeed = 3f;
     [SerializeField] private float maxSpeed = 20f;
+
+    [Header("Flügel (eigener Geschwindigkeitsbereich)")]
+    [Tooltip("Ab dieser Aufwaertsgeschwindigkeit beginnen die Fluegel zu flattern")]
+    [SerializeField] private float wingMinSpeed = 0.5f;
+    [Tooltip("Ab dieser Geschwindigkeit flattern sie mit vollem Tempo")]
+    [SerializeField] private float wingMaxSpeed = 8f;
 
     [Header("Partikel pro Sekunde bei maxSpeed")]
     [SerializeField] private float maxEmissionRate = 60f;
@@ -37,7 +44,6 @@ public class UpwardSpeedParticles : MonoBehaviour
     private void Awake()
     {
         invSpeedRange = 1f / Mathf.Max(0.0001f, maxSpeed - minSpeed);
-        ResetTracking();
     }
 
     private void Update()
@@ -45,10 +51,13 @@ public class UpwardSpeedParticles : MonoBehaviour
         float dt = Time.deltaTime;
         if (dt <= 0f) return;
 
-        float y = player.position.y;
-        float upSpeed = (y - lastY) / dt;
-        lastY = y;
+        float upSpeed = playerBody.linearVelocity.y;
 
+        // --- Fluegel: eigener, niedrigerer Bereich ---
+        float wingT = Mathf.Clamp01((upSpeed - wingMinSpeed) / Mathf.Max(0.0001f, wingMaxSpeed - wingMinSpeed));
+        if (wings != null) wings.SetFlapSpeed(wingT);
+
+        // --- Effekte: wie gehabt mit peakSpeed/stopFactor ---
         if (upSpeed > minSpeed)
         {
             peakSpeed = Mathf.Max(upSpeed, peakSpeed - peakDecay * dt);
@@ -58,7 +67,6 @@ public class UpwardSpeedParticles : MonoBehaviour
                 float t = Mathf.Clamp01((upSpeed - minSpeed) * invSpeedRange);
                 float curved = Mathf.Pow(t, curvePower);
 
-                // Partikel
                 emitAccumulator += curved * maxEmissionRate * dt;
                 int count = (int)emitAccumulator;
                 if (count > 0)
@@ -67,14 +75,11 @@ public class UpwardSpeedParticles : MonoBehaviour
                     effect.Emit(count);
                 }
 
-                // Sound: Abstand wird mit der Geschwindigkeit kürzer
                 float now = Time.time;
                 if (now >= nextPlayTime)
                 {
                     AudioClip clip = PickClip();
-                    if (clip != null)
-                        PlayClip(clip, volume);
-
+                    if (clip != null) PlayClip(clip, volume);
                     nextPlayTime = now + Mathf.Lerp(maxInterval, minInterval, t);
                 }
             }
@@ -104,11 +109,6 @@ public class UpwardSpeedParticles : MonoBehaviour
         return clips[index];
     }
 
-    public void ResetTracking()
-    {
-        lastY = player.position.y;
-        peakSpeed = 0f;
-    }
 
     // ------------------------------------------------------------------
     // HIER an deinen Manager anpassen

@@ -14545,7 +14545,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6.1499996, y: 6.1499996, z: 6.1499996}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1176981098}
   m_Father: {fileID: 1437001146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0, y: 0}
@@ -15790,7 +15791,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000009536743, y: -12.38}
+  m_AnchoredPosition: {x: 0.0000009536743, y: -18.34}
   m_SizeDelta: {x: 87.0626, y: 87.0626}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799193171
@@ -21509,6 +21510,101 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1174042885}
+  m_CullTransparentMesh: 1
+--- !u!1 &1176981097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1176981098}
+  - component: {fileID: 1176981101}
+  - component: {fileID: 1176981100}
+  - component: {fileID: 1176981099}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1176981098
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176981097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 739051153}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 6.76165, y: -0.21373}
+  m_SizeDelta: {x: 7.4253, y: 9.97746}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1176981099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176981097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81faf01dc259173448a0a25f5fe6d40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WingFlap
+  wingImage: {fileID: 1176981100}
+  frames:
+  - {fileID: 21300000, guid: f9f6ef4bd8040eb4f9c740b656e9aa07, type: 3}
+  - {fileID: 21300000, guid: 946063381b5f99a4aa61af1882ea3cce, type: 3}
+  restSprite: {fileID: 21300000, guid: f9f6ef4bd8040eb4f9c740b656e9aa07, type: 3}
+  minFps: 0
+  maxFps: 18
+--- !u!114 &1176981100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176981097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f9f6ef4bd8040eb4f9c740b656e9aa07, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1176981101
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176981097}
   m_CullTransparentMesh: 1
 --- !u!4 &1183125025 stripped
 Transform:
@@ -31377,10 +31473,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3185a6fb062c4e4a9f50b12d3d5d7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpwardSpeedParticles
-  player: {fileID: 1879326608}
+  playerBody: {fileID: 1879326609}
   effect: {fileID: 1925952740}
+  wings: {fileID: 1176981099}
   minSpeed: 0.1
   maxSpeed: 100
+  wingMinSpeed: 0.5
+  wingMaxSpeed: 8
   maxEmissionRate: 600
   stopFactor: 0.552
   peakDecay: 6
@@ -31594,7 +31693,7 @@ Transform:
   m_GameObject: {fileID: 1879326607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.96, z: 10}
+  m_LocalPosition: {x: 0, y: 1.048, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -8,6 +8,7 @@ public class FallDeathReload : MonoBehaviour
     public LayerMask groundLayer;
     public RisingEnvironment risingEnvironment;
     public WeaponController weaponController;
+    public StageBanner stageBanner;
 
     private float highestY;
     public bool isGrounded;
@@ -62,6 +63,7 @@ public class FallDeathReload : MonoBehaviour
                 {
                     Debug.Log("Reload");
                     risingEnvironment.StartNew();
+                    stageBanner.ResetForNewRun();
                     //weaponController.currentmaxAmmo = weaponController.maxAmmo;
                     //weaponController.SetUp();
                 }

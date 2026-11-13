@@ -31799,6 +31799,7 @@ MonoBehaviour:
     m_Bits: 8
   risingEnvironment: {fileID: 1537145246}
   weaponController: {fileID: 869033647}
+  stageBanner: {fileID: 847064416}
   isGrounded: 0
 --- !u!4 &1882073046 stripped
 Transform:

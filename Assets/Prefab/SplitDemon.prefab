@@ -469,6 +469,8 @@ MonoBehaviour:
   smoothTime: 0.12
   scaleFirstChild: 1
   childScaleFactor: 1
+  collider: {fileID: 3327278700629085471}
+  normalcolliderScale: 0
 --- !u!114 &1326063805739401687
 MonoBehaviour:
   m_ObjectHideFlags: 0

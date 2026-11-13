@@ -377,7 +377,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.038725
+  m_Radius: 1.05
   m_Center: {x: -0, y: 0.0042477846, z: 0}
 --- !u!54 &6863027380343724505
 Rigidbody:
@@ -468,6 +468,7 @@ MonoBehaviour:
   smoothTime: 0.12
   scaleFirstChild: 1
   childScaleFactor: 1
+  collider: {fileID: 3327278700629085471}
 --- !u!1 &4449176211447174222
 GameObject:
   m_ObjectHideFlags: 0

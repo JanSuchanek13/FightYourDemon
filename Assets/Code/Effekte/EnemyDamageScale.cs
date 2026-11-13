@@ -17,6 +17,11 @@ public class EnemyDamageScale : MonoBehaviour
     [Tooltip("Wie stark das Child im Verhältnis zum Hauptobjekt extra waechst (1 = genauso, 2 = doppelt so stark).")]
     [SerializeField] private float childScaleFactor = 1f;
 
+    [Header("Collider")]
+    [Tooltip("Collider des Körpers.")]
+    [SerializeField] private SphereCollider collider;
+    [SerializeField] private float normalcolliderScale;
+
     private const float SettleEpsilon = 0.0005f;
 
     private Transform cachedTransform;
@@ -37,6 +42,7 @@ public class EnemyDamageScale : MonoBehaviour
         {
             firstChild = cachedTransform.GetChild(0);
             childNormalScale = firstChild.localScale.x;
+            normalcolliderScale = childNormalScale + 0.05f;
         }
 
         enabled = false;
@@ -56,7 +62,12 @@ public class EnemyDamageScale : MonoBehaviour
         cachedTransform.localScale = new Vector3(normalScale, normalScale, normalScale);
 
         if (firstChild != null)
+        {
             firstChild.localScale = new Vector3(childNormalScale, childNormalScale, childNormalScale);
+            collider.radius = normalcolliderScale;
+        }
+            
+
 
         enabled = false;
     }
@@ -80,6 +91,8 @@ public class EnemyDamageScale : MonoBehaviour
             float extra = (currentScale - normalScale) * childScaleFactor;
             float childScale = childNormalScale + extra;
             firstChild.localScale = new Vector3(childScale, childScale, childScale);
+            collider.radius = childScale;
+
         }
     }
 }

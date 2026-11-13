@@ -468,6 +468,8 @@ MonoBehaviour:
   smoothTime: 0.12
   scaleFirstChild: 1
   childScaleFactor: 1
+  collider: {fileID: 3327278700629085471}
+  normalcolliderScale: 0
 --- !u!1 &4449176211447174222
 GameObject:
   m_ObjectHideFlags: 0

@@ -275,6 +275,7 @@ public class WeaponController : MonoBehaviour
                 }
                 else                                                                //Gegner Treffer
                 {
+                    crosshairHitmarker.ShowHit();   // Hit-Marker
                     //Debug.Log("Hit");
                     damageable.TakeDamage(dmg);
                     // Schadenszahl genau am Einschlagpunkt

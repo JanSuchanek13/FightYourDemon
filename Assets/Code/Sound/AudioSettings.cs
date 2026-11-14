@@ -60,7 +60,7 @@ public class AudioSettings : MonoBehaviour
             ToggleMenu();
     }
 
-    private void ToggleMenu()
+    public void ToggleMenu()
     {
         _isOpen = !_isOpen;
         if (settingsPanel != null) settingsPanel.SetActive(_isOpen);

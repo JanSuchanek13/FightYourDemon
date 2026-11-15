@@ -45,7 +45,7 @@ public class ComboCounter : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         _baseScale = comboText != null ? comboText.transform.localScale : Vector3.one;
         if (canvasGroup != null) canvasGroup.alpha = 0f;

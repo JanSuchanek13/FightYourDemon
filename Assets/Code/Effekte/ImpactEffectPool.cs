@@ -22,7 +22,7 @@ public class ImpactEffectPool : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Effekt eines bestimmten Prefabs an Position/Rotation abspielen

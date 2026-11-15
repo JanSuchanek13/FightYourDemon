@@ -90,7 +90,7 @@ public class RisingEnvironment : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         player = GameObject.FindGameObjectWithTag("Player");
 

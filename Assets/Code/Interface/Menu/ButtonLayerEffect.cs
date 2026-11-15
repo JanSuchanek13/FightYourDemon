@@ -57,6 +57,11 @@ public class ButtonLayerEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
     }
 
+    private void OnDisable()
+    {
+        SetSprite(_normalSprite);
+    }
+
     public void OnPointerEnter(PointerEventData e)
     {
         _hovered = true;

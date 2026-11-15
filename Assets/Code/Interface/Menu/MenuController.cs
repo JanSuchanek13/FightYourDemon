@@ -5,6 +5,7 @@ using CodeMonkey.Utils;
 public class MenuController : MonoBehaviour
 {
     [SerializeField] private Transform buttons;
+    [SerializeField] private GameObject settings;
 
     private void Awake()
     {
@@ -15,7 +16,7 @@ public class MenuController : MonoBehaviour
 
         buttons.Find("Settings").GetComponent<Button_UI>().ClickFunc = () =>
         {
-            LoadScene(1);
+            OpenSettings();
         };
 
         buttons.Find("Quit").GetComponent<Button_UI>().ClickFunc = () =>
@@ -50,5 +51,10 @@ public class MenuController : MonoBehaviour
     {
         Debug.Log("Quit"); // im Editor sichtbar; echtes Beenden nur im Build
         Application.Quit();
+    }
+
+    private void OpenSettings()
+    {
+        settings.SetActive(true);
     }
 }

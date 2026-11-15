@@ -99,7 +99,7 @@ public class ConfigSkills : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public bool CanBuy(PlayerSkills.SkillType skillType)

@@ -16,7 +16,7 @@ public class SkillManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         playerSkills = new PlayerSkills(); //Erstellt eine neue, leere Liste der vorhandenen Skills
         playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillUnlocked; //subscribed PlayerSkills_OnSkillUnlocked zu der Event Funktion in PlayerSkills

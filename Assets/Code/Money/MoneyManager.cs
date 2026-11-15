@@ -35,7 +35,7 @@ public class MoneyManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         _totalBaseScale = ui_money.transform.localScale;
         UpdateTotal();

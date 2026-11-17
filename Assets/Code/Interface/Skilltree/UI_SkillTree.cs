@@ -389,6 +389,7 @@ public class UI_SkillTree : MonoBehaviour
             }
 
             Transform imageTransform = uiSkill.Find("Image");
+            //Transform frameTransform = uiSkill.Find("Frame");
 
             if (imageTransform == null)
             {
@@ -396,7 +397,9 @@ public class UI_SkillTree : MonoBehaviour
                 continue;
             }
 
+
             Image image = imageTransform.GetComponent<Image>();
+            //Image frame = frameTransform.GetComponent<Image>();
 
             if (playerSkills.IsSkillUnlocked(skill))
             {
@@ -409,6 +412,10 @@ public class UI_SkillTree : MonoBehaviour
                 // Skill kann freigeschaltet werden
                 uiSkill.gameObject.SetActive(true);
                 image.material = skillUnlockedMaterial;
+                if (ConfigSkills.Instance.CanBuy(skill)) //Genug Geld für Skill
+                {
+                    //frame.color = Color.yellow;
+                }
             }
             else
             {

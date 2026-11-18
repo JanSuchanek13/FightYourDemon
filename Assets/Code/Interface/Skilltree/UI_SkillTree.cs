@@ -24,10 +24,16 @@ public class UI_SkillTree : MonoBehaviour
     [SerializeField] private Material skillUnlockedMaterial;
     [SerializeField] private SkillUnlockPath[] skillUnlockPathsArray;
 
+    [SerializeField] private Sprite hoverBackground;
+    [SerializeField] private Sprite hoverBackground1;
+
 
 
     private void Awake()
     {
+        Sprite background = null;
+        Sprite background1 = null;
+
         transform.Find("Background").GetComponent<Button_UI>().MouseOverOnceFunc = () => //Lääst beim Hovern auf den Hintergrund den Tooltipp verschwinden
         {
             //Debug.Log("Background Hover");
@@ -346,6 +352,10 @@ public class UI_SkillTree : MonoBehaviour
         };
         transform.Find("FlyingBoost_1").GetComponent<Button_UI>().MouseOverOnceFunc = () =>
         {
+            background = transform.Find("FlyingBoost_1").Find("Background").GetComponent<Image>().sprite;
+            background1 = transform.Find("FlyingBoost_1").Find("Background (1)").GetComponent<Image>().sprite;
+            transform.Find("FlyingBoost_1").Find("Background").GetComponent<Image>().sprite = hoverBackground;
+            transform.Find("FlyingBoost_1").Find("Background (1)").GetComponent<Image>().sprite = hoverBackground1;
             if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.FlyingBoost_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.FlyingBoost_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("FlyingBoost_1").position + Vector3.up * 10;
@@ -355,6 +365,11 @@ public class UI_SkillTree : MonoBehaviour
                 uiStat2.text = (RisingEnvironment.Instance.flyingBoost + ConfigSkills.Instance.FlyingBoost_1_Value).ToString();
                 uiPrice.text = ConfigSkills.Instance.FlyingBoost_1_Price.ToString();
             }
+        };
+        transform.Find("FlyingBoost_1").GetComponent<Button_UI>().MouseOutOnceFunc = () =>
+        {
+            transform.Find("FlyingBoost_1").Find("Background").GetComponent<Image>().sprite = background;
+            transform.Find("FlyingBoost_1").Find("Background (1)").GetComponent<Image>().sprite = background1;
         };
     }
 
@@ -401,8 +416,6 @@ public class UI_SkillTree : MonoBehaviour
                 Debug.LogWarning($"Image für Skill {skill} nicht gefunden!");
                 continue;
             }
-
-
             Image image = imageTransform.GetComponent<Image>();
 
             //Frame einfärben wenn genug Geld

@@ -356,7 +356,16 @@ public class UI_SkillTree : MonoBehaviour
             background1 = transform.Find("FlyingBoost_1").Find("Background (1)").GetComponent<Image>().sprite;
             transform.Find("FlyingBoost_1").Find("Background").GetComponent<Image>().sprite = hoverBackground;
             transform.Find("FlyingBoost_1").Find("Background (1)").GetComponent<Image>().sprite = hoverBackground1;
-            if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.FlyingBoost_1) || playerSkills.CanUnlock(PlayerSkills.SkillType.FlyingBoost_1)) //Ist Skill sichtbar > dann Tooltip anzeigen
+            if (playerSkills.IsSkillUnlocked(PlayerSkills.SkillType.FlyingBoost_1)) //Ist Skill bereits gekauft > dann Tooltip anzeigen
+            {
+                skillTooltip.transform.position = transform.Find("FlyingBoost_1").position + Vector3.up * 10;
+                uiName.text = ConfigSkills.Instance.FlyingBoost_1_Name;
+                uiDesc.text = ConfigSkills.Instance.FlyingBoost_1_Desc;
+                uiStat1.text = (RisingEnvironment.Instance.flyingBoost).ToString();
+                uiStat2.text = (RisingEnvironment.Instance.flyingBoost + ConfigSkills.Instance.FlyingBoost_1_Value).ToString();
+                uiPrice.text = ConfigSkills.Instance.FlyingBoost_1_Price.ToString();
+            }
+            if (playerSkills.CanUnlock(PlayerSkills.SkillType.FlyingBoost_1)) //Ist Skill kaufbar > dann Tooltip anzeigen
             {
                 skillTooltip.transform.position = transform.Find("FlyingBoost_1").position + Vector3.up * 10;
                 uiName.text = ConfigSkills.Instance.FlyingBoost_1_Name;

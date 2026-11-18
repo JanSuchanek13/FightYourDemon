@@ -376,6 +376,11 @@ public class UI_SkillTree : MonoBehaviour
         UpdateVisuals();
     }
 
+    private void OnEnable()
+    {
+        UpdateVisuals();
+    }
+
     private void UpdateVisuals() //skill Farbe Ändern
     {
         foreach (PlayerSkills.SkillType skill in Enum.GetValues(typeof(PlayerSkills.SkillType)))
@@ -389,7 +394,7 @@ public class UI_SkillTree : MonoBehaviour
             }
 
             Transform imageTransform = uiSkill.Find("Image");
-            //Transform frameTransform = uiSkill.Find("Frame");
+            Transform frameTransform = uiSkill.Find("Frame");
 
             if (imageTransform == null)
             {
@@ -399,7 +404,23 @@ public class UI_SkillTree : MonoBehaviour
 
 
             Image image = imageTransform.GetComponent<Image>();
-            //Image frame = frameTransform.GetComponent<Image>();
+
+            //Frame einfärben wenn genug Geld
+            if (frameTransform != null)
+            {
+                Debug.Log("Skill");
+                Image frame = frameTransform.GetComponent<Image>();
+                if(ConfigSkills.Instance.HasEnoughMoney(skill) && !playerSkills.IsSkillUnlocked(skill))
+                {
+                    frame.color = Color.yellow;
+                }
+                else
+                {
+                    frame.color = Color.white;
+                }
+                //frame.color = ConfigSkills.Instance.HasEnoughMoney(skill) ? Color.yellow : Color.white;
+                //frame.color = playerSkills.IsSkillUnlocked(skill) ? Color.white : Color.yellow;
+            }
 
             if (playerSkills.IsSkillUnlocked(skill))
             {
@@ -412,9 +433,14 @@ public class UI_SkillTree : MonoBehaviour
                 // Skill kann freigeschaltet werden
                 uiSkill.gameObject.SetActive(true);
                 image.material = skillUnlockedMaterial;
-                if (ConfigSkills.Instance.CanBuy(skill)) //Genug Geld für Skill
+                if (ConfigSkills.Instance.HasEnoughMoney(skill)) //Genug Geld für Skill
                 {
+                    //Debug.Log("genug Geld");
                     //frame.color = Color.yellow;
+                }
+                else
+                {
+                    //Debug.Log("nciht genug Geld");
                 }
             }
             else

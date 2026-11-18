@@ -102,220 +102,53 @@ public class ConfigSkills : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
     }
 
+    // Nur pruefen, ob genug Geld da ist - zieht NICHTS ab
+    public bool HasEnoughMoney(PlayerSkills.SkillType skillType)
+    {
+        int price = GetPrice(skillType);
+        if (price < 0) return false;   // unbekannter Skill
+        return MoneyManager.Instance.GetMoney() >= price;
+    }
+
+    // Liefert den Preis eines Skills
+    public int GetPrice(PlayerSkills.SkillType skillType)
+    {
+        switch (skillType)
+        {
+            case PlayerSkills.SkillType.DamageAdd_1: return DamageAdd_1_Price;
+            case PlayerSkills.SkillType.DamageAdd_2: return DamageAdd_2_Price;
+            case PlayerSkills.SkillType.MagazineMulti_1: return MagazineMulti_1_Price;
+            case PlayerSkills.SkillType.AmmoAdd_1: return AmmoAdd_1_Price;
+            case PlayerSkills.SkillType.AmmoAdd_2: return AmmoAdd_2_Price;
+            case PlayerSkills.SkillType.Reload_1: return Reload_1_Price;
+            case PlayerSkills.SkillType.FullAuto: return FullAuto_Price;
+            case PlayerSkills.SkillType.PiercingShot: return PiercingShot_Price;
+            case PlayerSkills.SkillType.Demon_1: return Demon_1_Price;
+            case PlayerSkills.SkillType.Demon_2: return Demon_2_Price;
+            case PlayerSkills.SkillType.BulletDemon_1: return BulletDemon_1_Price;
+            case PlayerSkills.SkillType.BulletDemon_2: return BulletDemon_2_Price;
+            case PlayerSkills.SkillType.OrbitDemon_1: return OrbitDemon_1_Price;
+            case PlayerSkills.SkillType.MoneyDemon_1: return MoneyDemon_1_Price;
+            case PlayerSkills.SkillType.MoneyDemon_2: return MoneyDemon_2_Price;
+            case PlayerSkills.SkillType.DistanceBoost_1: return DistanceBoost_1_Price;
+            case PlayerSkills.SkillType.FlyingBoost_1: return FlyingBoost_1_Price;
+            default: return -1;
+        }
+    }
+
+    // Kauft tatsaechlich: prueft UND zieht Geld ab
     public bool CanBuy(PlayerSkills.SkillType skillType)
     {
-        switch (skillType)  //checkt nach Skill und seinen Kosten
+        int price = GetPrice(skillType);
+        if (price < 0) return false;
+
+        if (MoneyManager.Instance.GetMoney() >= price)
         {
-            case PlayerSkills.SkillType.DamageAdd_1: 
-                if (MoneyManager.Instance.GetMoney() >= DamageAdd_1_Price) 
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(DamageAdd_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.DamageAdd_2:
-                if (MoneyManager.Instance.GetMoney() >= DamageAdd_2_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(DamageAdd_2_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.MagazineMulti_1:
-                if (MoneyManager.Instance.GetMoney() >= MagazineMulti_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(MagazineMulti_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.AmmoAdd_1:
-                if (MoneyManager.Instance.GetMoney() >= AmmoAdd_1_Price) 
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(AmmoAdd_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.AmmoAdd_2:
-                if (MoneyManager.Instance.GetMoney() >= AmmoAdd_2_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(AmmoAdd_2_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.Reload_1:
-                if (MoneyManager.Instance.GetMoney() >= Reload_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(Reload_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.FullAuto:
-                if (MoneyManager.Instance.GetMoney() >= FullAuto_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(FullAuto_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.PiercingShot:
-                if (MoneyManager.Instance.GetMoney() >= PiercingShot_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(PiercingShot_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.Demon_1:
-                if (MoneyManager.Instance.GetMoney() >= Demon_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(Demon_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.Demon_2:
-                if (MoneyManager.Instance.GetMoney() >= Demon_2_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(Demon_2_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.BulletDemon_1:
-                if (MoneyManager.Instance.GetMoney() >= BulletDemon_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(BulletDemon_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.BulletDemon_2:
-                if (MoneyManager.Instance.GetMoney() >= BulletDemon_2_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(BulletDemon_2_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.OrbitDemon_1:
-                if (MoneyManager.Instance.GetMoney() >= OrbitDemon_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(OrbitDemon_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.MoneyDemon_1:
-                if (MoneyManager.Instance.GetMoney() >= MoneyDemon_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(MoneyDemon_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.MoneyDemon_2:
-                if (MoneyManager.Instance.GetMoney() >= MoneyDemon_2_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(MoneyDemon_2_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.DistanceBoost_1:
-                if (MoneyManager.Instance.GetMoney() >= DistanceBoost_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(DistanceBoost_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-            case PlayerSkills.SkillType.FlyingBoost_1:
-                if (MoneyManager.Instance.GetMoney() >= FlyingBoost_1_Price)
-                {
-                    Debug.Log("gekauft");
-                    MoneyManager.Instance.SpendMoney(FlyingBoost_1_Price);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
-
-
-            case PlayerSkills.SkillType.None:
-                break;
-
+            MoneyManager.Instance.SpendMoney(price);
+            return true;
         }
         return false;
     }
+
+
 }

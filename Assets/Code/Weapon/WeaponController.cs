@@ -17,6 +17,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private ShootZoom shootZoom;
     [SerializeField] private ShellEjector shellEjector;
     [SerializeField] private CrosshairHitmarker crosshairHitmarker;
+    [SerializeField] private FallDeathReload fallDeathReload;
 
     private float nextFireTime;
     private bool isReloading;
@@ -84,6 +85,31 @@ public class WeaponController : MonoBehaviour
         ui_MaxAmmo.GetComponent<TMPro.TextMeshProUGUI>().text = currentmaxAmmo.ToString();*/
     }
 
+    public void RefillOnGround()
+    {
+        Debug.Log("refill");
+        if(weaponData.magazineSize * magazineMulti <= maxAmmo)
+        {
+            currentAmmo = weaponData.magazineSize * magazineMulti;
+        }
+        else
+        {
+            currentAmmo = maxAmmo;
+        }
+        
+        if(maxAmmo >= currentAmmo)
+        {
+            currentmaxAmmo = maxAmmo - currentAmmo;
+        }
+        else
+        {
+            currentmaxAmmo = 0;
+        }
+        
+        isReloading = true;
+        // currentAmmo NICHT auf 0 - laufendes Magazin bleibt
+    }
+
     void Update()
     {
         if (Time.time >= nextFireTime)
@@ -109,16 +135,18 @@ public class WeaponController : MonoBehaviour
                 TryShoot();
         }
 
-        if (currentAmmo == 0 && currentmaxAmmo != 0)   //Nachladen: wenn Magazin leer und insgesammte Munition noch nicht 0
+        if (currentAmmo == 0 && currentmaxAmmo != 0 && !fallDeathReload.isGrounded)   //Nachladen: wenn Magazin leer und insgesammte Munition noch nicht 0
         {
             nextFireTime = Time.time + weaponData.reloadTime / reloadMulti;
             if (currentmaxAmmo >= weaponData.magazineSize * magazineMulti) //Magazin kleiner als Reserve Ammo
             {
+                Debug.Log("größer");
                 currentAmmo = weaponData.magazineSize * magazineMulti;
                 currentmaxAmmo -= weaponData.magazineSize * magazineMulti;
             }
             else
             {
+                Debug.Log("kleiner");
                 currentAmmo = currentmaxAmmo;
                 currentmaxAmmo = 0;
             }

@@ -32,10 +32,9 @@ public class FallDeathReload : MonoBehaviour
         float fallDistance = highestY - transform.position.y;
         hasFallenEnough = fallDistance >= deathFallHeight;
 
-        if (transform.position.y < 2 && weaponController.currentmaxAmmo == 0) //prüft damit Ammo nie auf dem Boden leer geht
+        if (transform.position.y < 2 && weaponController.currentAmmo == 0) //prüft damit Ammo nie auf dem Boden leer geht
         {
-            weaponController.currentmaxAmmo = weaponController.maxAmmo;
-            weaponController.SetUp();
+            weaponController.RefillOnGround();   // statt SetUp()
         }
 
         if (transform.position.y < 0) //prüft falls man durch Plattform fällt
@@ -64,6 +63,7 @@ public class FallDeathReload : MonoBehaviour
                     Debug.Log("Reload");
                     risingEnvironment.StartNew();
                     stageBanner.ResetForNewRun();
+                    weaponController.RefillOnGround();
                     //weaponController.currentmaxAmmo = weaponController.maxAmmo;
                     //weaponController.SetUp();
                 }

@@ -18,6 +18,12 @@ public class UI_SkillTree : MonoBehaviour
     [SerializeField] private TMP_Text uiStat1;
     [SerializeField] private TMP_Text uiStat2;
     [SerializeField] private TMP_Text uiPrice;
+
+    public GameObject skillTooltip_unlocked;
+    [SerializeField] private TMP_Text uiName_unlocked;
+    [SerializeField] private TMP_Text uiDesc_unlocked;
+
+
     public MouseLook mouseLook;
 
     [SerializeField] private Material skillLockedMaterial;
@@ -27,10 +33,92 @@ public class UI_SkillTree : MonoBehaviour
     [SerializeField] private Sprite hoverBackground;
     [SerializeField] private Sprite hoverBackground1;
 
+    private class SkillUI
+    {
+        public PlayerSkills.SkillType type;
 
+        // Werte, wenn der Skill KAUFBAR ist (CanUnlock)
+        public System.Func<string> stat1;
+        public System.Func<string> stat2;
+    }
 
     private void Awake()
     {
+        var skills = new List<SkillUI>
+        {
+            new SkillUI { type = PlayerSkills.SkillType.FullAuto,
+                stat1 = () => weapon.weaponData.fireMode.ToString(),
+                stat2 = () => "Full Auto" },
+
+            new SkillUI { type = PlayerSkills.SkillType.PiercingShot,
+                stat1 = () => "Normal",
+                stat2 = () => "Piercing" },
+
+            new SkillUI { type = PlayerSkills.SkillType.DamageAdd_1,
+                stat1 = () => (weapon.weaponData.damage + weapon.damageAdd).ToString(),
+                stat2 = () => (weapon.weaponData.damage + weapon.damageAdd + ConfigSkills.Instance.DamageAdd_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.DamageAdd_2,
+                stat1 = () => (weapon.weaponData.damage + weapon.damageAdd).ToString(),
+                stat2 = () => (weapon.weaponData.damage + weapon.damageAdd + ConfigSkills.Instance.DamageAdd_2_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.AmmoAdd_1,
+                stat1 = () => weapon.maxAmmo.ToString(),
+                stat2 = () => (weapon.maxAmmo + ConfigSkills.Instance.AmmoAdd_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.AmmoAdd_2,
+                stat1 = () => weapon.maxAmmo.ToString(),
+                stat2 = () => (weapon.maxAmmo + ConfigSkills.Instance.AmmoAdd_2_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.MagazineMulti_1,
+                stat1 = () => (weapon.weaponData.magazineSize * weapon.magazineMulti).ToString(),
+                stat2 = () => (weapon.weaponData.magazineSize * (weapon.magazineMulti + ConfigSkills.Instance.MagazineMulti_1_Value)).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.Reload_1,
+                stat1 = () => (weapon.weaponData.reloadTime / weapon.reloadMulti).ToString(),
+                stat2 = () => (weapon.weaponData.reloadTime / (weapon.reloadMulti + ConfigSkills.Instance.Reload_1_Value)).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.Demon_1,
+                stat1 = () => RisingEnvironment.Instance.DemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.Demon_2,
+                stat1 = () => RisingEnvironment.Instance.DemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_2_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.BulletDemon_1,
+                stat1 = () => RisingEnvironment.Instance.BulletDemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.BulletDemon_2,
+                stat1 = () => RisingEnvironment.Instance.BulletDemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_2_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.OrbitDemon_1,
+                stat1 = () => RisingEnvironment.Instance.OrbitDemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.OrbitDemonCount + ConfigSkills.Instance.OrbitDemon_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.MoneyDemon_1,
+                stat1 = () => RisingEnvironment.Instance.MoneyDemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.MoneyDemon_2,
+                stat1 = () => RisingEnvironment.Instance.MoneyDemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_2_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.DistanceBoost_1,
+                stat1 = () => RisingEnvironment.Instance.distanceBoost.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.distanceBoost + ConfigSkills.Instance.DistanceBoost_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.FlyingBoost_1,
+                stat1 = () => RisingEnvironment.Instance.flyingBoost.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.flyingBoost + ConfigSkills.Instance.FlyingBoost_1_Value).ToString() },
+        };
+
+        foreach (var s in skills)
+            SetupSkill(s);
+
+        /*
         Sprite background = null;
         Sprite background1 = null;
 
@@ -380,6 +468,64 @@ public class UI_SkillTree : MonoBehaviour
             transform.Find("FlyingBoost_1").Find("Background").GetComponent<Image>().sprite = background;
             transform.Find("FlyingBoost_1").Find("Background (1)").GetComponent<Image>().sprite = background1;
         };
+        */
+    }
+
+    private void SetupSkill(SkillUI s)
+    {
+        string name = s.type.ToString();
+        Transform node = transform.Find(name);
+        if (node == null) { Debug.LogWarning($"Kein UI-Node für {name}"); return; }
+
+        Button_UI btn = node.GetComponent<Button_UI>();
+
+        // Hintergruende einmal cachen (alle Skills haben sie)
+        Image bg = node.Find("Background").GetComponent<Image>();
+        Image bg1 = node.Find("Background (1)").GetComponent<Image>();
+        Sprite origBg = null, origBg1 = null;
+
+        // Klick: freischalten
+        btn.ClickFunc = () =>
+        {
+            if (!playerSkills.IsSkillUnlocked(s.type))
+                playerSkills.TryUnlockSkill(s.type);
+        };
+
+        // Hover
+        btn.MouseOverOnceFunc = () =>
+        {
+            // Hintergrund tauschen (fuer alle)
+            origBg = bg.sprite; origBg1 = bg1.sprite;
+            bg.sprite = hoverBackground; bg1.sprite = hoverBackground1;
+
+            if (playerSkills.IsSkillUnlocked(s.type))
+            {
+                // --- Tooltip fuer bereits freigeschalteten Skill ---
+                skillTooltip_unlocked.SetActive(true);
+                skillTooltip_unlocked.transform.position = node.position + Vector3.up * 10;
+                uiName_unlocked.text = ConfigSkills.Instance.GetName(s.type);
+                uiDesc_unlocked.text = ConfigSkills.Instance.GetDesc(s.type);
+            }
+            else if (playerSkills.CanUnlock(s.type))
+            {
+                // --- Tooltip fuer kaufbaren Skill ---
+                skillTooltip.SetActive(true);
+                skillTooltip.transform.position = node.position + Vector3.up * 10;
+                uiName.text = ConfigSkills.Instance.GetName(s.type);
+                uiDesc.text = ConfigSkills.Instance.GetDesc(s.type);
+                uiStat1.text = s.stat1();
+                uiStat2.text = s.stat2();
+                uiPrice.text = ConfigSkills.Instance.GetPrice(s.type).ToString();
+            }
+        };
+
+        // MouseOut: Hintergrund zuruecksetzen
+        btn.MouseOutOnceFunc = () =>
+        {
+            bg.sprite = origBg; bg1.sprite = origBg1;
+            skillTooltip.SetActive(false);
+            skillTooltip_unlocked.SetActive(false);
+        };
     }
 
     public void CloseSkillTree()
@@ -419,6 +565,7 @@ public class UI_SkillTree : MonoBehaviour
 
             Transform imageTransform = uiSkill.Find("Image");
             Transform frameTransform = uiSkill.Find("Frame");
+            Image frame = frameTransform.GetComponent<Image>();
 
             if (imageTransform == null)
             {
@@ -430,8 +577,6 @@ public class UI_SkillTree : MonoBehaviour
             //Frame einfärben wenn genug Geld
             if (frameTransform != null)
             {
-                Debug.Log("Skill");
-                Image frame = frameTransform.GetComponent<Image>();
                 if(ConfigSkills.Instance.HasEnoughMoney(skill) && !playerSkills.IsSkillUnlocked(skill))
                 {
                     frame.color = Color.yellow;
@@ -446,7 +591,7 @@ public class UI_SkillTree : MonoBehaviour
 
             if (playerSkills.IsSkillUnlocked(skill))
             {
-                // Skill bereits freigeschaltet
+                // Skill bereits freigeschaltet = wird in Farbe angezeigt
                 uiSkill.gameObject.SetActive(true);
                 image.material = null;
             }
@@ -455,15 +600,7 @@ public class UI_SkillTree : MonoBehaviour
                 // Skill kann freigeschaltet werden
                 uiSkill.gameObject.SetActive(true);
                 image.material = skillUnlockedMaterial;
-                if (ConfigSkills.Instance.HasEnoughMoney(skill)) //Genug Geld für Skill
-                {
-                    //Debug.Log("genug Geld");
-                    //frame.color = Color.yellow;
-                }
-                else
-                {
-                    //Debug.Log("nciht genug Geld");
-                }
+                frame.material = skillUnlockedMaterial;
             }
             else
             {

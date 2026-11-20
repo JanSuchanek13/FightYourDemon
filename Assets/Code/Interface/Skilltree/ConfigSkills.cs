@@ -136,6 +136,56 @@ public class ConfigSkills : MonoBehaviour
         }
     }
 
+    public string GetName(PlayerSkills.SkillType skillType)
+    {
+        switch (skillType)
+        {
+            case PlayerSkills.SkillType.DamageAdd_1: return DamageAdd_1_Name;
+            case PlayerSkills.SkillType.DamageAdd_2: return DamageAdd_2_Name;
+            case PlayerSkills.SkillType.MagazineMulti_1: return MagazineMulti_1_Name;
+            case PlayerSkills.SkillType.AmmoAdd_1: return AmmoAdd_1_Name;
+            case PlayerSkills.SkillType.AmmoAdd_2: return AmmoAdd_2_Name;
+            case PlayerSkills.SkillType.Reload_1: return Reload_1_Name;
+            case PlayerSkills.SkillType.FullAuto: return FullAuto_Name;
+            case PlayerSkills.SkillType.PiercingShot: return PiercingShot_Name;
+            case PlayerSkills.SkillType.Demon_1: return Demon_1_Name;
+            case PlayerSkills.SkillType.Demon_2: return Demon_2_Name;
+            case PlayerSkills.SkillType.BulletDemon_1: return BulletDemon_1_Name;
+            case PlayerSkills.SkillType.BulletDemon_2: return BulletDemon_2_Name;
+            case PlayerSkills.SkillType.OrbitDemon_1: return OrbitDemon_1_Name;
+            case PlayerSkills.SkillType.MoneyDemon_1: return MoneyDemon_1_Name;
+            case PlayerSkills.SkillType.MoneyDemon_2: return MoneyDemon_2_Name;
+            case PlayerSkills.SkillType.DistanceBoost_1: return DistanceBoost_1_Name;
+            case PlayerSkills.SkillType.FlyingBoost_1: return FlyingBoost_1_Name;
+            default: return ("");
+        }
+    }
+
+    public string GetDesc(PlayerSkills.SkillType skillType)
+    {
+        switch (skillType)
+        {
+            case PlayerSkills.SkillType.DamageAdd_1: return DamageAdd_1_Desc;
+            case PlayerSkills.SkillType.DamageAdd_2: return DamageAdd_2_Desc;
+            case PlayerSkills.SkillType.MagazineMulti_1: return MagazineMulti_1_Desc;
+            case PlayerSkills.SkillType.AmmoAdd_1: return AmmoAdd_1_Desc;
+            case PlayerSkills.SkillType.AmmoAdd_2: return AmmoAdd_2_Desc;
+            case PlayerSkills.SkillType.Reload_1: return Reload_1_Desc;
+            case PlayerSkills.SkillType.FullAuto: return FullAuto_Desc;
+            case PlayerSkills.SkillType.PiercingShot: return PiercingShot_Desc;
+            case PlayerSkills.SkillType.Demon_1: return Demon_1_Desc;
+            case PlayerSkills.SkillType.Demon_2: return Demon_2_Desc;
+            case PlayerSkills.SkillType.BulletDemon_1: return BulletDemon_1_Desc;
+            case PlayerSkills.SkillType.BulletDemon_2: return BulletDemon_2_Desc;
+            case PlayerSkills.SkillType.OrbitDemon_1: return OrbitDemon_1_Desc;
+            case PlayerSkills.SkillType.MoneyDemon_1: return MoneyDemon_1_Desc;
+            case PlayerSkills.SkillType.MoneyDemon_2: return MoneyDemon_2_Desc;
+            case PlayerSkills.SkillType.DistanceBoost_1: return DistanceBoost_1_Desc;
+            case PlayerSkills.SkillType.FlyingBoost_1: return FlyingBoost_1_Desc;
+            default: return ("");
+        }
+    }
+
     // Kauft tatsaechlich: prueft UND zieht Geld ab
     public bool CanBuy(PlayerSkills.SkillType skillType)
     {

@@ -30,6 +30,7 @@ public class ButtonLayerEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
     [Header("Sprite-Wechsel (letzter Layer)")]
     [Tooltip("Sprite, das der letzte Layer beim Hover zeigt.")]
     [SerializeField] private Sprite hoverSprite;
+    [SerializeField] private bool changeSprite = true;
 
     private bool _hovered;
     private RectTransform _rect;
@@ -65,7 +66,10 @@ public class ButtonLayerEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void OnPointerEnter(PointerEventData e)
     {
         _hovered = true;
-        SetSprite(hoverSprite);
+        if (changeSprite)
+        {
+            SetSprite(hoverSprite);
+        }
     }
 
     public void OnPointerExit(PointerEventData e)

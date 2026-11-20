@@ -566,6 +566,8 @@ public class UI_SkillTree : MonoBehaviour
             Transform imageTransform = uiSkill.Find("Image");
             Transform frameTransform = uiSkill.Find("Frame");
             Image frame = frameTransform.GetComponent<Image>();
+            Transform backgroundTransform = uiSkill.Find("Background");
+            Image background = backgroundTransform.GetComponent<Image>();
 
             if (imageTransform == null)
             {
@@ -594,13 +596,14 @@ public class UI_SkillTree : MonoBehaviour
                 // Skill bereits freigeschaltet = wird in Farbe angezeigt
                 uiSkill.gameObject.SetActive(true);
                 image.material = null;
+                background.material = null;
             }
             else if (playerSkills.CanUnlock(skill))
             {
                 // Skill kann freigeschaltet werden
                 uiSkill.gameObject.SetActive(true);
                 image.material = skillUnlockedMaterial;
-                frame.material = skillUnlockedMaterial;
+                background.material = skillUnlockedMaterial;
             }
             else
             {

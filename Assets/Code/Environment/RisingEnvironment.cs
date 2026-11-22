@@ -12,6 +12,7 @@ public class RisingEnvironment : MonoBehaviour
 
     public GameObject TopLevel;
     public GameObject BottomLevel;
+    public float playerBoostFactor;
     public List<GameObject> crates = new List<GameObject>();
 
     [Header("Height")]
@@ -401,7 +402,7 @@ public class RisingEnvironment : MonoBehaviour
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
             playerBoostForce += (Vector3.Distance(player.transform.position, demonPos)*2) * distanceBoost; //Distance Boost addieren
-            playerBoostForce = playerBoostForce * flyingBoost; //Flying Boost multi
+            playerBoostForce = playerBoostForce * flyingBoost * playerBoostFactor; //Flying Boost multi
 
             rb.AddForce(Vector3.up * playerBoostForce, ForceMode.Impulse);
         }

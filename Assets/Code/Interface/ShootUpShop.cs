@@ -5,6 +5,7 @@ public class ShootUpShop : MonoBehaviour, IDamageable
     public float health = 30f;
     public GameObject shopUI;
     public MouseLook mouseLook;
+    public AudioSettings audioSettings;
     public float slowDownDuration = 1.2f;
     private bool isOpen;
 
@@ -22,6 +23,7 @@ public class ShootUpShop : MonoBehaviour, IDamageable
 
     void OpenShop()
     {
+        audioSettings.openMenu = true;
         StartCoroutine(SlowTimeAndOpenUpgrade());
         WeaponController.Instance.currentAmmo += 1; //keine Lösung für Shotgun
         WeaponController.Instance.ui_Ammo.text = WeaponController.Instance.currentAmmo.ToString();
@@ -34,6 +36,7 @@ public class ShootUpShop : MonoBehaviour, IDamageable
 
     public void ResumeGame()
     {
+        audioSettings.openMenu = false;
         shopUI.SetActive(false);
         CursorManager.HideCursor();
         Cursor.lockState = CursorLockMode.Locked;

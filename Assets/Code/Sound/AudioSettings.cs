@@ -15,6 +15,9 @@ public class AudioSettings : MonoBehaviour
 
     [Header("Menue")]
     [SerializeField] private GameObject settingsPanel;
+
+    [Header("Stop Things")]
+    public bool openMenu;
     public MouseLook mouseLook;
 
     [Header("Beispiel-Sound")]
@@ -66,12 +69,21 @@ public class AudioSettings : MonoBehaviour
         _isOpen = !_isOpen;
         if (settingsPanel != null) settingsPanel.SetActive(_isOpen);
 
-        // Zeit anhalten und Cursor freigeben, wenn offen
-        Time.timeScale = _isOpen ? 0f : 1f;
-        Cursor.lockState = _isOpen ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = _isOpen;
-        WeaponController.Instance.enabled = !_isOpen;
-        mouseLook.GetComponent<MouseLook>().enabled = !_isOpen;
+        
+        if (openMenu) //ist ein anderes Menu offen für das man den Cursor braucht
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            // Zeit anhalten und Cursor freigeben, wenn offen
+            Time.timeScale = _isOpen ? 0f : 1f;
+            Cursor.lockState = _isOpen ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = _isOpen;
+            WeaponController.Instance.enabled = !_isOpen;
+            mouseLook.GetComponent<MouseLook>().enabled = !_isOpen;
+        }
     }
 
     public void SetMaster(float value) => ChangeAndSave(MASTER, value);

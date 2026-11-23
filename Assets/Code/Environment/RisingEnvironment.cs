@@ -46,10 +46,6 @@ public class RisingEnvironment : MonoBehaviour
     [SerializeField] private FallDeathReload playerGround;   // vom Player
     private bool _wasGrounded;
 
-    [Header("Fester 2. Spawn (am Boden)")]
-    [SerializeField] private Transform fixedSecondSpawnPoint;   // feste Position
-    private int _groundSpawnCount;   // zaehlt Spawns seit dem Landen
-
     [Header("StartNew")]
     [Tooltip("Wie viele Sekunden lang nach dem Aufprall gespawnt wird")]
     public float startNewSeconds = 10f;
@@ -196,19 +192,6 @@ public class RisingEnvironment : MonoBehaviour
     {
         if (_spawnBudget == 0f) return false;
 
-        // nur am Boden zaehlen; der 2. Spawn bekommt die feste Position
-        bool grounded = playerGround != null && playerGround.isGrounded;
-
-        // 2. Spawn am Boden: immer ein normaler Daemon an der festen Position
-        if (grounded && _groundSpawnCount == 1 && fixedSecondSpawnPoint != null
-            && _normalType != null && _normalType.pool.Count > 0)
-        {
-            Activate(_normalType, fixedSecondSpawnPoint.position);
-            if (_spawnBudget > 0f) _spawnBudget -= 1f;
-            _groundSpawnCount++;
-            return true;
-        }
-
         // normaler Ablauf: Spezialtypen durchgehen, erster Treffer gewinnt
         foreach (var type in demonTypes)
         {
@@ -217,7 +200,6 @@ public class RisingEnvironment : MonoBehaviour
             {
                 Activate(type);
                 if (_spawnBudget > 0f) _spawnBudget -= 1f;
-                if (grounded) _groundSpawnCount++;
                 return true;
             }
         }
@@ -225,7 +207,6 @@ public class RisingEnvironment : MonoBehaviour
         {
             Activate(_normalType);
             if (_spawnBudget > 0f) _spawnBudget -= 1f;
-            if (grounded) _groundSpawnCount++;
             return true;
         }
         return false;
@@ -325,7 +306,6 @@ public class RisingEnvironment : MonoBehaviour
         ReturnAllDemons();                            // alle aktiven zurueck in die Queues
         _spawnBudget = spawnRate * startNewSeconds;   // Deckel: so viele wie in 10 s
         _spawnTimer = 0f;
-        _groundSpawnCount = 0;   // Zaehler fuer die Bodenphase zuruecksetzen
     }
 
     public void ResetCrate(GameObject crate, bool startnew)
@@ -411,6 +391,14 @@ public class RisingEnvironment : MonoBehaviour
     public void StageBoost(float playerBoostForce)
     {
         BoostPlayer(playerBoostForce, player.transform.position);
+    }
+
+    // Gibt die aktuelle Spawn-Wahrscheinlichkeit eines Dämon-Typs zurück (0 wenn nicht gefunden)
+    public float GetSpawnChance(DestructibleCrate.demonClass demonClass)
+    {
+        if (_byClass.TryGetValue(demonClass, out var type))
+            return type.spawnChance;
+        return 0f;
     }
 
     public void UpdateX()

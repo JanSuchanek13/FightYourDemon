@@ -15,6 +15,7 @@ public class AudioSettings : MonoBehaviour
 
     [Header("Menue")]
     [SerializeField] private GameObject settingsPanel;
+    public MouseLook mouseLook;
 
     [Header("Beispiel-Sound")]
     [SerializeField] private AudioClip sfxPreviewClip;
@@ -69,6 +70,8 @@ public class AudioSettings : MonoBehaviour
         Time.timeScale = _isOpen ? 0f : 1f;
         Cursor.lockState = _isOpen ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = _isOpen;
+        WeaponController.Instance.enabled = !_isOpen;
+        mouseLook.GetComponent<MouseLook>().enabled = !_isOpen;
     }
 
     public void SetMaster(float value) => ChangeAndSave(MASTER, value);

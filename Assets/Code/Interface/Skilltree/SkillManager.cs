@@ -71,6 +71,15 @@ public class SkillManager : MonoBehaviour
             case PlayerSkills.SkillType.FlyingBoost_1:
                 RisingEnvironment.Instance.UpdateFlyingBoost(ConfigSkills.Instance.FlyingBoost_1_Value);
                 break;
+            case PlayerSkills.SkillType.Demon_3:
+                RisingEnvironment.Instance.AddSpawnRate(ConfigSkills.Instance.Demon_3_Value);
+                break;
+            case PlayerSkills.SkillType.SplitDemon_1:
+                RisingEnvironment.Instance.AddSpawnChance(DestructibleCrate.demonClass.SplitDemon, ConfigSkills.Instance.SplitDemon_1_Value);
+                break;
+            case PlayerSkills.SkillType.BombDemon_1:
+                RisingEnvironment.Instance.AddSpawnChance(DestructibleCrate.demonClass.BombDemon, ConfigSkills.Instance.BombDemon_1_Value);
+                break;
         }
     }
 

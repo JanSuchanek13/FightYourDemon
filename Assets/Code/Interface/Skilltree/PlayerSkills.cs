@@ -32,7 +32,8 @@ public class PlayerSkills
         DistanceBoost_1,
         FlyingBoost_1,
         Demon_3,
-        SplitDemon_1
+        SplitDemon_1,
+        BombDemon_1
     }
 
     private List<SkillType> unlockedSkillTypeList;
@@ -115,10 +116,19 @@ public class PlayerSkills
                 return SkillType.MoneyDemon_1;
 
             case SkillType.DistanceBoost_1:
-                return SkillType.DamageAdd_2;
+                return SkillType.FlyingBoost_1;
 
             case SkillType.PiercingShot:
                 return SkillType.Reload_1;
+
+            case SkillType.Demon_3:
+                return SkillType.Demon_2;
+
+            case SkillType.SplitDemon_1:
+                return SkillType.Demon_2;
+
+            case SkillType.BombDemon_1:
+                return SkillType.Demon_3;
 
         }
         return SkillType.None;

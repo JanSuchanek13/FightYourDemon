@@ -89,6 +89,21 @@ public class ConfigSkills : MonoBehaviour
     public string FlyingBoost_1_Desc = "Additional boost when an enemy ist killed";
     public float FlyingBoost_1_Value = 0.5f;
 
+    public int Demon_3_Price = 300;
+    public string Demon_3_Name = "Add Demon";
+    public string Demon_3_Desc = "Increasing the Demons";
+    public int Demon_3_Value = 1;
+
+    public int SplitDemon_1_Price = 300;
+    public string SplitDemon_1_Name = "Add Split Demon";
+    public string SplitDemon_1_Desc = "Adding new Split Demons";
+    public float SplitDemon_1_Value = 0.05f;
+
+    public int BombDemon_1_Price = 300;
+    public string BombDemon_1_Name = "Add Bomb Demon";
+    public string BombDemon_1_Desc = "Adding new Bomb Demons";
+    public float BombDemon_1_Value = 0.05f;
+
 
     private void Awake()
     {
@@ -132,6 +147,9 @@ public class ConfigSkills : MonoBehaviour
             case PlayerSkills.SkillType.MoneyDemon_2: return MoneyDemon_2_Price;
             case PlayerSkills.SkillType.DistanceBoost_1: return DistanceBoost_1_Price;
             case PlayerSkills.SkillType.FlyingBoost_1: return FlyingBoost_1_Price;
+            case PlayerSkills.SkillType.Demon_3: return Demon_3_Price;
+            case PlayerSkills.SkillType.SplitDemon_1: return SplitDemon_1_Price;
+            case PlayerSkills.SkillType.BombDemon_1: return BombDemon_1_Price;
             default: return -1;
         }
     }
@@ -157,6 +175,9 @@ public class ConfigSkills : MonoBehaviour
             case PlayerSkills.SkillType.MoneyDemon_2: return MoneyDemon_2_Name;
             case PlayerSkills.SkillType.DistanceBoost_1: return DistanceBoost_1_Name;
             case PlayerSkills.SkillType.FlyingBoost_1: return FlyingBoost_1_Name;
+            case PlayerSkills.SkillType.Demon_3: return Demon_3_Name;
+            case PlayerSkills.SkillType.SplitDemon_1: return SplitDemon_1_Name;
+            case PlayerSkills.SkillType.BombDemon_1: return BombDemon_1_Name;
             default: return ("");
         }
     }
@@ -182,6 +203,9 @@ public class ConfigSkills : MonoBehaviour
             case PlayerSkills.SkillType.MoneyDemon_2: return MoneyDemon_2_Desc;
             case PlayerSkills.SkillType.DistanceBoost_1: return DistanceBoost_1_Desc;
             case PlayerSkills.SkillType.FlyingBoost_1: return FlyingBoost_1_Desc;
+            case PlayerSkills.SkillType.Demon_3: return Demon_3_Desc;
+            case PlayerSkills.SkillType.SplitDemon_1: return SplitDemon_1_Desc;
+            case PlayerSkills.SkillType.BombDemon_1: return BombDemon_1_Desc;
             default: return ("");
         }
     }

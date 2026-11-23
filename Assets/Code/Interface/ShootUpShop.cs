@@ -22,7 +22,7 @@ public class ShootUpShop : MonoBehaviour, IDamageable
 
     void OpenShop()
     {
-        //StartCoroutine(SlowTimeAndOpenUpgrade());
+        StartCoroutine(SlowTimeAndOpenUpgrade());
         WeaponController.Instance.currentAmmo += 1; //keine Lösung für Shotgun
         WeaponController.Instance.ui_Ammo.text = WeaponController.Instance.currentAmmo.ToString();
         WeaponController.Instance.enabled = false;
@@ -41,7 +41,7 @@ public class ShootUpShop : MonoBehaviour, IDamageable
         WeaponController.Instance.enabled = true;
         isOpen = false;
 
-        //StartCoroutine(ResumeTime());
+        StartCoroutine(ResumeTime());
     }
 
     System.Collections.IEnumerator SlowTimeAndOpenUpgrade()

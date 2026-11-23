@@ -113,6 +113,18 @@ public class UI_SkillTree : MonoBehaviour
             new SkillUI { type = PlayerSkills.SkillType.FlyingBoost_1,
                 stat1 = () => RisingEnvironment.Instance.flyingBoost.ToString(),
                 stat2 = () => (RisingEnvironment.Instance.flyingBoost + ConfigSkills.Instance.FlyingBoost_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.Demon_3,
+                stat1 = () => RisingEnvironment.Instance.DemonCount.ToString(),
+                stat2 = () => (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_3_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.SplitDemon_1,
+                stat1 = () => RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.SplitDemon).ToString(),
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.SplitDemon) + ConfigSkills.Instance.SplitDemon_1_Value).ToString() },
+
+            new SkillUI { type = PlayerSkills.SkillType.BombDemon_1,
+                stat1 = () => RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BombDemon).ToString(),
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BombDemon) + ConfigSkills.Instance.BombDemon_1_Value).ToString() },
         };
 
         foreach (var s in skills)

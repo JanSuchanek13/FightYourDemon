@@ -55,7 +55,7 @@ public class RisingEnvironment : MonoBehaviour
     [Header("Spawning")]
     public List<DemonType> demonTypes = new List<DemonType>();
     [Tooltip("Daemonen pro Sekunde")]
-    public float spawnRate = 2f;
+    public float spawnRate = 0.5f;
     [Tooltip("Max. Spawns pro Frame (gegen Nachhol-Bursts bei Framedrops)")]
     public int maxSpawnsPerFrame = 3;
 

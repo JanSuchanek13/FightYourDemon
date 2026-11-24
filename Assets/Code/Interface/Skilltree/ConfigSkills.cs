@@ -45,38 +45,38 @@ public class ConfigSkills : MonoBehaviour
     public int PiercingShot_Value = 99;
 
     public int Demon_1_Price = 5;
-    public string Demon_1_Name = "Add Demon";
-    public string Demon_1_Desc = "Increasing the Demons";
+    public string Demon_1_Name = "Demon Spawnrate";
+    public string Demon_1_Desc = "Increasing the Demon Spawnrate";
     public int Demon_1_Value = 1;
 
     public int Demon_2_Price = 300;
-    public string Demon_2_Name = "Add Demon";
-    public string Demon_2_Desc = "Increasing the Demons";
+    public string Demon_2_Name = "Demon Spawnrate";
+    public string Demon_2_Desc = "Increasing the Demon Spawnrate";
     public int Demon_2_Value = 1;
 
     public int BulletDemon_1_Price = 500;
-    public string BulletDemon_1_Name = "Add Green Demon";
-    public string BulletDemon_1_Desc = "Adding new green Demon";
+    public string BulletDemon_1_Name = "Military Demon";
+    public string BulletDemon_1_Desc = "Increasing the Military Demon Spawnchance";
     public float BulletDemon_1_Value = 0.01f;
 
     public int BulletDemon_2_Price = 1000;
-    public string BulletDemon_2_Name = "Add Green Demon";
-    public string BulletDemon_2_Desc = "Increasing the green Demons";
+    public string BulletDemon_2_Name = "Military Demon";
+    public string BulletDemon_2_Desc = "Increasing the Military Demon Spawnchance";
     public float BulletDemon_2_Value = 0.01f;
 
     public int OrbitDemon_1_Price = 30;
-    public string OrbitDemon_1_Name = "Add Orange Demon";
-    public string OrbitDemon_1_Desc = "Adding new orange Demon";
+    public string OrbitDemon_1_Name = "Planet Demon";
+    public string OrbitDemon_1_Desc = "Increasing the Planet Demon Spawnchance";
     public float OrbitDemon_1_Value = 0.05f;
 
     public int MoneyDemon_1_Price = 80;
-    public string MoneyDemon_1_Name = "Add Blue Demon";
-    public string MoneyDemon_1_Desc = "Adding new blue Demon";
+    public string MoneyDemon_1_Name = "Business Demon";
+    public string MoneyDemon_1_Desc = "Increasing the Business Demon Spawnchance";
     public float MoneyDemon_1_Value = 0.01f;
 
     public int MoneyDemon_2_Price = 100;
-    public string MoneyDemon_2_Name = "Add BlueDemon";
-    public string MoneyDemon_2_Desc = "Increasing the blue Demons";
+    public string MoneyDemon_2_Name = "Business Demon";
+    public string MoneyDemon_2_Desc = "Increasing the Business Demon Spawnchance";
     public float MoneyDemon_2_Value = 0.01f;
 
     public int DistanceBoost_1_Price = 2000;
@@ -90,18 +90,18 @@ public class ConfigSkills : MonoBehaviour
     public float FlyingBoost_1_Value = 0.5f;
 
     public int Demon_3_Price = 300;
-    public string Demon_3_Name = "Add Demon";
-    public string Demon_3_Desc = "Increasing the Demons";
+    public string Demon_3_Name = "Demon Spawnrate";
+    public string Demon_3_Desc = "Increasing the Demon Spawnrate";
     public int Demon_3_Value = 1;
 
     public int SplitDemon_1_Price = 300;
-    public string SplitDemon_1_Name = "Add Split Demon";
-    public string SplitDemon_1_Desc = "Adding new Split Demons";
+    public string SplitDemon_1_Name = "Split Demon";
+    public string SplitDemon_1_Desc = "Increasing the Split Demon Spawnchance";
     public float SplitDemon_1_Value = 0.05f;
 
     public int BombDemon_1_Price = 300;
-    public string BombDemon_1_Name = "Add Bomb Demon";
-    public string BombDemon_1_Desc = "Adding new Bomb Demons";
+    public string BombDemon_1_Name = "Bomb Demon";
+    public string BombDemon_1_Desc = "Increasing the Bomb Demon Spawnchance";
     public float BombDemon_1_Value = 0.05f;
 
 

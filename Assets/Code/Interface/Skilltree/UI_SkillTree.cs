@@ -79,8 +79,8 @@ public class UI_SkillTree : MonoBehaviour
                 stat2 = () => (weapon.weaponData.reloadTime / (weapon.reloadMulti + ConfigSkills.Instance.Reload_1_Value)).ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.Demon_1,
-                stat1 = () => RisingEnvironment.Instance.DemonCount.ToString(),
-                stat2 = () => (RisingEnvironment.Instance.DemonCount + ConfigSkills.Instance.Demon_1_Value).ToString() },
+                stat1 = () => (RisingEnvironment.Instance.spawnRate + "/sec").ToString(),
+                stat2 = () => (RisingEnvironment.Instance.spawnRate + ConfigSkills.Instance.Demon_1_Value + "/sec").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.Demon_2,
                 stat1 = () => RisingEnvironment.Instance.DemonCount.ToString(),

@@ -18,6 +18,7 @@ public class UI_SkillTree : MonoBehaviour
     [SerializeField] private TMP_Text uiStat1;
     [SerializeField] private TMP_Text uiStat2;
     [SerializeField] private TMP_Text uiPrice;
+    private int prozentCalculationFactor = 100;
 
     public GameObject skillTooltip_unlocked;
     [SerializeField] private TMP_Text uiName_unlocked;
@@ -87,24 +88,24 @@ public class UI_SkillTree : MonoBehaviour
                 stat2 = () => (RisingEnvironment.Instance.spawnRate + ConfigSkills.Instance.Demon_2_Value + "/sec").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.BulletDemon_1,
-                stat1 = () => (RisingEnvironment.Instance.BulletDemonCount + "%").ToString(),
-                stat2 = () => (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_1_Value + "%").ToString() },
+                stat1 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BulletDemon) + "%").ToString(),
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BulletDemon) + ConfigSkills.Instance.BulletDemon_1_Value *prozentCalculationFactor + "%").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.BulletDemon_2,
-                stat1 = () => (RisingEnvironment.Instance.BulletDemonCount + "%").ToString(),
-                stat2 = () => (RisingEnvironment.Instance.BulletDemonCount + ConfigSkills.Instance.BulletDemon_2_Value + "%").ToString() },
+                stat1 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BulletDemon) + "%").ToString(),
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BulletDemon) + ConfigSkills.Instance.BulletDemon_2_Value *prozentCalculationFactor + "%").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.OrbitDemon_1,
-                stat1 = () => (RisingEnvironment.Instance.OrbitDemonCount + "%").ToString(),
-                stat2 = () => (RisingEnvironment.Instance.OrbitDemonCount + ConfigSkills.Instance.OrbitDemon_1_Value + "%").ToString() },
+                stat1 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.OrbitDemon) + "%").ToString(),
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.OrbitDemon) + ConfigSkills.Instance.OrbitDemon_1_Value *prozentCalculationFactor + "%").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.MoneyDemon_1,
-                stat1 = () => (RisingEnvironment.Instance.MoneyDemonCount + "%").ToString(),
-                stat2 = () => (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_1_Value + "%").ToString() },
+                stat1 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.MoneyDemon) + "%").ToString(),
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.MoneyDemon) + ConfigSkills.Instance.MoneyDemon_1_Value *prozentCalculationFactor + "%").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.MoneyDemon_2,
-                stat1 = () => (RisingEnvironment.Instance.MoneyDemonCount + "%").ToString(),
-                stat2 = () => (RisingEnvironment.Instance.MoneyDemonCount + ConfigSkills.Instance.MoneyDemon_2_Value + "%").ToString() },
+                stat1 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.MoneyDemon) + "%").ToString(),
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.MoneyDemon) + ConfigSkills.Instance.MoneyDemon_2_Value *prozentCalculationFactor + "%").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.DistanceBoost_1,
                 stat1 = () => RisingEnvironment.Instance.distanceBoost.ToString(),
@@ -120,11 +121,11 @@ public class UI_SkillTree : MonoBehaviour
 
             new SkillUI { type = PlayerSkills.SkillType.SplitDemon_1,
                 stat1 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.SplitDemon) + "%").ToString(),
-                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.SplitDemon) + ConfigSkills.Instance.SplitDemon_1_Value + "%").ToString() },
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.SplitDemon) + ConfigSkills.Instance.SplitDemon_1_Value *prozentCalculationFactor + "%").ToString() },
 
             new SkillUI { type = PlayerSkills.SkillType.BombDemon_1,
                 stat1 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BombDemon) + "%").ToString(),
-                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BombDemon) + ConfigSkills.Instance.BombDemon_1_Value + "%").ToString() },
+                stat2 = () => (RisingEnvironment.Instance.GetSpawnChance(DestructibleCrate.demonClass.BombDemon) + ConfigSkills.Instance.BombDemon_1_Value *prozentCalculationFactor + "%").ToString() },
         };
 
         foreach (var s in skills)

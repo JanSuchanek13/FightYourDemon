@@ -13,12 +13,7 @@ public class AudioSettings : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
-    [Header("Menue")]
-    [SerializeField] private GameObject settingsPanel;
-
-    [Header("Stop Things")]
-    public bool openMenu;
-    public MouseLook mouseLook;
+    
 
     [Header("Beispiel-Sound")]
     [SerializeField] private AudioClip sfxPreviewClip;
@@ -28,7 +23,6 @@ public class AudioSettings : MonoBehaviour
     private const string MUSIC = "MusicVol";
     private const string SFX = "SFXVol";
 
-    private bool _isOpen;
 
     void Start()
     {
@@ -53,38 +47,9 @@ public class AudioSettings : MonoBehaviour
         AddReleaseListener(musicSlider, PlayMusicPreview);
         AddReleaseListener(sfxSlider, PlaySfxPreview);
 
-        // Menue startet geschlossen
-        if (settingsPanel != null) settingsPanel.SetActive(false);
-        _isOpen = false;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            ToggleMenu();
-    }
-
-    public void ToggleMenu()
-    {
-        _isOpen = !_isOpen;
-        if (settingsPanel != null) settingsPanel.SetActive(_isOpen);
-
-        
-        if (openMenu) //ist ein anderes Menu offen für das man den Cursor braucht
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            // Zeit anhalten und Cursor freigeben, wenn offen
-            Time.timeScale = _isOpen ? 0f : 1f;
-            Cursor.lockState = _isOpen ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = _isOpen;
-            WeaponController.Instance.enabled = !_isOpen;
-            mouseLook.GetComponent<MouseLook>().enabled = !_isOpen;
-        }
-    }
+    
 
     public void SetMaster(float value) => ChangeAndSave(MASTER, value);
     public void SetMusic(float value) => ChangeAndSave(MUSIC, value);

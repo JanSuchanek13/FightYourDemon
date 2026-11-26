@@ -5,7 +5,8 @@ using CodeMonkey.Utils;
 public class MenuController : MonoBehaviour
 {
     [SerializeField] private Transform buttons;
-    [SerializeField] private GameObject settings;
+    [SerializeField] private GameObject settingsUI;
+    private bool _isOpenSettings;
 
     private void Awake()
     {
@@ -55,6 +56,7 @@ public class MenuController : MonoBehaviour
 
     private void OpenSettings()
     {
-        settings.SetActive(true);
+        settingsUI.SetActive(!_isOpenSettings);
+        _isOpenSettings = !_isOpenSettings;
     }
 }
